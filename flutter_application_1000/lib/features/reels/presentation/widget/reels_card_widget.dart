@@ -27,15 +27,18 @@ class ReelCardWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // videoPlayerWidget(Video: item.video),
-          Container(
-            width: double.infinity,
-            height: 632,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.black,
-            ),
+          VideoPlayerWidget(
+            videoUrl:
+                'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
           ),
+          // Container(
+          //   width: double.infinity,
+          //   height: 632,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(10),
+          //     color: Colors.black,
+          //   ),
+          // ),
           bodyReel(item: item),
         ],
       ),

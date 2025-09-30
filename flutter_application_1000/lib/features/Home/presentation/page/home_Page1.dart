@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1000/Core/App_manager/app_manager_cubit.dart';
 import 'package:flutter_application_1000/Core/network/service_locator.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
+import 'package:flutter_application_1000/features/Auth/data/Auth_remoute_data_Source.dart';
+import 'package:flutter_application_1000/features/Auth/presentation/manager/Auth_state.dart';
+import 'package:flutter_application_1000/features/Auth/presentation/manager/auth_Cubit.dart';
 import 'package:flutter_application_1000/features/Home/data/remouteData/home_page_state.dart';
 import 'package:flutter_application_1000/features/Home/data/remouteData/remoute_dealer_data_source.dart';
 import 'package:flutter_application_1000/features/Home/presentation/manager/home_page_cubit.dart';
@@ -45,61 +49,72 @@ class HomePage1 extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: AppBar(
-                  backgroundColor: Color(0xffffffff),
+                child: BlocListener<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if (state.dataUser != null) {
+                      print('okeyyyyyy');
+                      CustomSnakeBar(text: 'okey', isFailure: false);
+                      BlocProvider.of<AppManagerCubit>(
+                        context,
+                      ).savedDataUser(state.dataUser!);
+                    }
+                  },
+                  child: AppBar(
+                    backgroundColor: Color(0xffffffff),
 
-                  shadowColor: Color.fromARGB(38, 0, 0, 0),
-                  actions: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                    shadowColor: Color.fromARGB(38, 0, 0, 0),
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                BlocProvider.of<AuthCubit>(context).SignIn();
+                              },
+                              icon: Icon(Icons.notification_add, size: 20),
+                            ),
+                            SizedBox(width: 10.w),
+                            GestureDetector(
+                              onTap: () {
+                                RemouteDealerDataSource().getDataStoreProfile();
+                              },
+                              child: CircleAvatar(
+                                radius: 18.r,
+                                backgroundColor: Colors.grey,
+                                child: Icon(Icons.person, color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    title: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider.value(
+                              value: BlocProvider.of<HomePageCubit>(context),
+                              child: AddNewCarPage(),
+                            ),
+                          ),
+                        );
+                      },
                       child: Row(
                         children: [
-                          IconButton(
-                            onPressed: () {
-                              // RemouteDealerDataSource().getDataDashboard();
-                            },
-                            icon: Icon(Icons.notification_add, size: 20),
-                          ),
-                          SizedBox(width: 10.w),
-                          GestureDetector(
-                            onTap: () {
-                              RemouteDealerDataSource().getDataStoreProfile();
-                            },
-                            child: CircleAvatar(
-                              radius: 18.r,
-                              backgroundColor: Colors.grey,
-                              child: Icon(Icons.person, color: Colors.white),
+                          // Icon(Icons.directions_car, color: AppColors.primary, size: 24),
+                          SvgPicture.asset('assets/icons/car.svg'),
+                          SizedBox(width: 8.h),
+                          Text(
+                            'Dooss',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                  title: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => BlocProvider.value(
-                            value: BlocProvider.of<HomePageCubit>(context),
-                            child: AddNewCarPage(),
-                          ),
-                        ),
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        // Icon(Icons.directions_car, color: AppColors.primary, size: 24),
-                        SvgPicture.asset('assets/icons/car.svg'),
-                        SizedBox(width: 8.h),
-                        Text(
-                          'Dooss',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ),

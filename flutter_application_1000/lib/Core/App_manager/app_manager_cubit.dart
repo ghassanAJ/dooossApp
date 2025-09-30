@@ -1,33 +1,27 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_application_1000/Core/network/App_dio.dart';
 import 'package:flutter_application_1000/Core/network/service_locator.dart';
+import 'package:flutter_application_1000/features/Auth/data/Auth_remoute_data_Source.dart';
 import 'package:flutter_application_1000/features/Home/data/models/data_profile_models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppManagerCubit extends Cubit<StateAppManager> {
-  AppManagerCubit():super(StateAppManager());
+  AppManagerCubit() : super(StateAppManager());
 
-    void savedDataUser(DataProfileModel data) async {
-    // getIt<AppDio>().addToken(data.accessToken);
+  void savedDataUser(AuthDataResponse data) async {
+    getIt<AppDio>().addToken(data.access);
     emit(state.copyWith(Userinfo: data));
     // await dataSource.saveUserData(data);
   }
-
-
 }
 
-
 class StateAppManager {
-final  DataProfileModel? Userinfo;
+  final AuthDataResponse? Userinfo;
 
-  StateAppManager({ this.Userinfo});
+  StateAppManager({this.Userinfo});
 
-  StateAppManager copyWith({
-    DataProfileModel? Userinfo,
-  }) {
-    return StateAppManager(
-      Userinfo: Userinfo ?? this.Userinfo,
-    );
+  StateAppManager copyWith({AuthDataResponse? Userinfo}) {
+    return StateAppManager(Userinfo: Userinfo ?? this.Userinfo);
   }
 }
 

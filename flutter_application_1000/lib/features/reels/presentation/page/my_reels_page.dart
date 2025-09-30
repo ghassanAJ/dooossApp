@@ -73,35 +73,35 @@ class MyReelsPage extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            Row(
-                              children: [
-                                DropdownButtonFormField(
-                                  items: [
-                                    // DropdownMenuItem(child: )
-                                  ],
-                                  onChanged: (value) {},
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => AddReelsPage(),
-                                      ),
-                                    );
-                                  },
-                                  icon: Icon(Icons.add),
-                                ),
-                              ],
-                            ),
-                            ...List.generate(state.allReels.length, (i) {
-                              return ReelCardWidget(item: state.allReels[i]);
-                            }),
+                            // Row(
+                            //   children: [
+                            //     DropdownButtonFormField(
+                            //       items: [
+                            //         // DropdownMenuItem(child: )
+                            //       ],
+                            //       onChanged: (value) {},
+                            //     ),
+                            //     IconButton(
+                            //       onPressed: () {
+                            //         Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute(
+                            //             builder: (context) => AddReelsPage(),
+                            //           ),
+                            //         );
+                            //       },
+                            //       icon: Icon(Icons.add),
+                            //     ),
+                            //   ],
+                            // ),
+                            // ...List.generate(state.allReels.length, (i) {
+                            //   return ReelCardWidget(item: state.allReels[i]);
+                            // }),
                             Expanded(
                               child: SizedBox(
                                 height: 500.h,
                                 child: ListView.builder(
-                                  itemCount: 1,
+                                  itemCount: state.allReels.length,
                                   itemBuilder: (context, index) {
                                     return ReelCardWidget(
                                       item: state.allReels[index],
@@ -116,6 +116,8 @@ class MyReelsPage extends StatelessWidget {
                           right: 25.w,
                           bottom: 25.h,
                           child: FloatingActionButton(
+                            backgroundColor: Colors.transparent,
+
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -125,6 +127,8 @@ class MyReelsPage extends StatelessWidget {
                               );
                             },
                             child: Container(
+                              alignment: Alignment.center,
+                              child: Icon(Icons.add, color: Colors.white),
                               width: 50.w,
                               height: 50.w,
                               decoration: BoxDecoration(
