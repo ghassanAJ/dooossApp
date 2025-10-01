@@ -42,7 +42,7 @@ class remouteDataReelsSource {
     String title,
     String descraption,
   ) async {
-    var url = 'http://10.0.2.2:8010/api/reels/';
+    var url = '${AppUrl.BaseUrl}/reels/';
 
     print(videoUrl!.path);
     var data = FormData.fromMap({
@@ -123,7 +123,7 @@ class remouteDataReelsSource {
     //  /
     try {
       var response = await dio.request(
-        'http://10.0.2.2:8010/api/reels/$id/',
+        '${AppUrl.BaseUrl}/reels/$id/',
         options: Options(
           method: 'PATCH',
           // headers: header
@@ -143,7 +143,7 @@ class remouteDataReelsSource {
   }
 
   Future<Either<Failure, bool>> deleteReel(int id) async {
-    var url = 'http://10.0.2.2:8010/api/reels/$id/';
+    var url = '${AppUrl.BaseUrl}/reels/$id/';
     try {
       var response = await dio.delete(
         url,

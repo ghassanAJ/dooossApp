@@ -21,7 +21,7 @@ class RemouteDealerDataSource {
   RemouteDealerDataSource({required this.dio});
   Future<Either<Failure, List<productdata>>> getDataProduct() async {
     try {
-      var url = Uri.parse('http://10.0.2.2:8010/api/products/');
+      var url = Uri.parse('${AppUrl.BaseUrl}/products/');
       var response = await dio.get(
         'http://10.0.2.2:8010/api/products/',
         // options: Options(headers: header),
@@ -74,7 +74,7 @@ class RemouteDealerDataSource {
     try {
       print(dio.options.headers);
       var response = await dio.post(
-        'http://10.0.2.2:8010/api/products/',
+        '${AppUrl.BaseUrl}/products/',
         data: dat1a,
         // options: Options(headers: header),
       );
@@ -99,11 +99,12 @@ class RemouteDealerDataSource {
 
   Future<Either<String, void>> deleteProduct(int id) async {
     try {
-      var url = Uri.parse('http://10.0.2.2:8010/api/products/$id/');
+    
+      var url = Uri.parse('${AppUrl.BaseUrl}/products/$id/');
       print(dio.options.headers);
       var response = await dio.deleteUri(
         url,
-        // options: Options(headers: header),
+        options: Options(headers: header),
       );
       if (response.statusCode == 204) {
         print('okey');
