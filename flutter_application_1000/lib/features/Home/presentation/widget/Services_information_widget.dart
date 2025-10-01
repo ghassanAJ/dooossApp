@@ -57,6 +57,7 @@ class ServicesInformationWidget extends StatelessWidget {
             child: Column(
               children: [
                 CustomFormWithTitleWidget(
+                  validation: (val) {},
                   model: nameServices,
                   hintForm: 'e.g., Car Towing, Quick Oil Change',
                   title: 'Service Name ',
@@ -71,6 +72,7 @@ class ServicesInformationWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 16.h),
                 CustomFormWithTitleWidget(
+                  validation: (val) {},
                   model: description,
                   hintForm: 'Explain your service clearly (what,\nhow, why)',
                   title: 'Description ',

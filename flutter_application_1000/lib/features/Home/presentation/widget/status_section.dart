@@ -110,25 +110,28 @@ class StatusSection extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EditStoreProfile(
-                        lat: state.dataStore.latitude.toString(),
-                        log: state.dataStore.longitude.toString(),
-                        closeTime: state.dataStore.closingTime,
-                        openTime: state.dataStore.openingTime,
-                        storeDescription: TextEditingController(
-                          text: state.dataStore.storeDescription,
-                        ),
-                        phone: TextEditingController(
-                          text: state.dataStore.phone,
-                        ),
-                        storeName: TextEditingController(
-                          text: state.dataStore.name,
-                        ),
-                        location: TextEditingController(
-                          text: state.dataStore.locationAddress,
-                        ),
-                        email: TextEditingController(
-                          text: state.dataStore.googleMapsLink,
+                      builder: (_) => BlocProvider.value(
+                        value: BlocProvider.of<HomePageCubit>(context),
+                        child: EditStoreProfile(
+                          lat: state.dataStore.latitude.toString(),
+                          log: state.dataStore.longitude.toString(),
+                          closeTime: state.dataStore.closingTime,
+                          openTime: state.dataStore.openingTime,
+                          storeDescription: TextEditingController(
+                            text: state.dataStore.storeDescription,
+                          ),
+                          phone: TextEditingController(
+                            text: state.dataStore.phone,
+                          ),
+                          storeName: TextEditingController(
+                            text: state.dataStore.name,
+                          ),
+                          location: TextEditingController(
+                            text: state.dataStore.locationAddress,
+                          ),
+                          email: TextEditingController(
+                            text: state.dataStore.googleMapsLink,
+                          ),
                         ),
                       ),
                     ),

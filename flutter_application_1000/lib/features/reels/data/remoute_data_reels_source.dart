@@ -23,7 +23,7 @@ class remouteDataReelsSource {
       print(getIt<Dio>().options.headers);
       var response = await dio.get(
         'http://10.0.2.2:8010/api/reels/my-reels/',
-        options: Options(headers: header),
+        // options: Options(headers: header),
       );
       print(response.data);
       List<ReelDataModel> dataResponse = (response.data as List).map((item) {
@@ -58,7 +58,9 @@ class remouteDataReelsSource {
       var response = await dio.request(
         url,
         data: data,
-        options: Options(method: 'POST', headers: header),
+        options: Options(method: 'POST', 
+        // headers: header
+        ),
       );
       // var response = await dio.post(
       //   url,

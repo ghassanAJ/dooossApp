@@ -33,7 +33,7 @@ class _EditReelsPageState extends State<EditReelsPage> {
   late String video;
   @override
   void initState() {
-    video = widget.item.video;
+    video = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
     super.initState();
   }
 
@@ -79,20 +79,22 @@ class _EditReelsPageState extends State<EditReelsPage> {
                 },
               ),
             ),
-            CustomButtonWithIcon(
-              type: 'Save EditsReel',
-              iconButton: Icons.save,
-              ontap: () {
-                print(video);
-
-                BlocProvider.of<ReelsStateCubit>(context).EditDataReel(
-                  widget.item.id,
-                  widget.title.text,
-                  widget.descraption.text,
-                  video!,
-                  widget.item.thumbnail,
-                );
-              },
+            Center(
+              child: CustomButtonWithIcon(
+                type: 'Save Edits Reel',
+                iconButton: Icons.save,
+                ontap: () {
+                  print(video);
+              
+                  BlocProvider.of<ReelsStateCubit>(context).EditDataReel(
+                    widget.item.id,
+                    widget.title.text,
+                    widget.descraption.text,
+                   video,
+                    widget.item.thumbnail,
+                  );
+                },
+              ),
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/home_Page1.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -49,6 +50,8 @@ class priceAndQuantityWidget extends StatelessWidget {
                   width: 137.w,
                   // height: 55.h,
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    validator: (value) => Validator.notNullValidation(value),
                     controller: price,
                     decoration: InputDecoration(hintText: '0.00'),
                   ),
@@ -79,9 +82,9 @@ class priceAndQuantityWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    SvgPicture.asset('assets/icons/coin.svg'),
+                    Icon(Icons.discount, color: AppColors.primary),
                     SizedBox(width: 8.w),
-                    Text('Quantity', style: AppTextStyle.poppins514),
+                    Text('discount', style: AppTextStyle.poppins514),
                   ],
                 ),
                 SizedBox(height: 17.h),
@@ -89,6 +92,7 @@ class priceAndQuantityWidget extends StatelessWidget {
                   width: 137.w,
                   // height: 55.h,
                   child: TextFormField(
+                    validator: (value) => Validator.notNullValidation(value),
                     controller: quantity,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(hintText: '0'),

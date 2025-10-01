@@ -13,6 +13,7 @@ import 'package:flutter_application_1000/features/Home/presentation/page/add_new
 import 'package:flutter_application_1000/features/Home/presentation/page/edit_Prodect_page.dart';
 import 'package:flutter_application_1000/features/Home/presentation/page/edit_Profile_page.dart';
 import 'package:flutter_application_1000/features/Home/presentation/page/home_Page1.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/navigotorPage.dart';
 import 'package:flutter_application_1000/features/reels/presentation/page/add_reels_page.dart';
 import 'package:flutter_application_1000/features/reels/presentation/page/edit_reels_page.dart';
 import 'package:flutter_application_1000/features/reels/presentation/page/my_reels_page.dart';
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
           ),
           home: BlocProvider(
             create: (context) => AuthCubit(getIt<AuthRemouteDataSource>()),
-            child: MyReelsPage(),
+            child: HomePage1(),
           ),
         ),
       ),

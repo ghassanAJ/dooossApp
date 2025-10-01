@@ -14,7 +14,7 @@ void setUp() {
     () => remouteDataReelsSource(dio: getIt<Dio>()),
   );
   getIt.registerLazySingleton<RemouteDealerDataSource>(
-    () => RemouteDealerDataSource(),
+    () => RemouteDealerDataSource(dio: getIt<Dio>()),
   );
   getIt.registerLazySingleton<AuthRemouteDataSource>(
     () => AuthRemouteDataSource(dio: getIt<Dio>()),

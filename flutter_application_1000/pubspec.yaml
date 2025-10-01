@@ -83,6 +83,12 @@ flutter:
     - assets\icons\cloud.svg
     - assets\icons\brand.svg
     - assets\icons\cart.svg
+    - assets\icons\eye.svg
+    - assets\icons\massage.svg
+    - assets\icons\product.svg
+    - assets\icons\desc.svg
+    - assets\icons\reels.svg
+    - assets\icons\brand.svg
   fonts:
     - family: poppins
       fonts:

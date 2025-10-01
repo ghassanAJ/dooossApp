@@ -45,7 +45,7 @@ class _StoreInfoCardWidgetState extends State<StoreInfoCardWidget> {
 }
 
 class StoreInfoState {
-  final IconData icon;
+  final String icon;
   final String labal;
   final int value;
 

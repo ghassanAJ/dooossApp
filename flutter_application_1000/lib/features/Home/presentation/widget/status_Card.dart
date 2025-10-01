@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class StatCard extends StatelessWidget {
-  final IconData icon;
+  final String icon;
   final String label;
   final int value;
   final bool warning;
@@ -42,12 +43,12 @@ class StatCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              // SvgPicture.asset('assets/icons/edit.svg'),
-              Icon(
-                icon,
-                color: warning ? Colors.red : Colors.green,
-                size: 26.r,
-              ),
+              SvgPicture.asset(icon),
+              // Icon
+              //   icon,
+              //   color: warning ? Colors.red : Colors.green,
+              //   size: 26.r,
+              // ),
               SizedBox(width: 8.w),
               Text(
                 label,

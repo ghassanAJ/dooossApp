@@ -43,35 +43,57 @@ class MyReelsPage extends StatelessWidget {
                 ),
               ),
             ),
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: BlocConsumer<ReelsStateCubit, reelsState>(
-                  listener: (context, state) {
-                    if (state.isSuccess == true) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: CustomSnakeBar(
-                            text: 'Delete Reel is success',
-                          ),
-                          backgroundColor:
-                              Colors.transparent, // ⬅️ جعل الخلفية شفافة
-                          elevation: 0,
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.only(
-                            top: 20, // مسافة من الأعلى
-                            left: 10,
-                            right: 10,
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                  builder: (context, state) {
-                    return Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        Column(
+            body: Stack(
+              children: [
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: BlocConsumer<ReelsStateCubit, reelsState>(
+                      listener: (context, state) {
+                        if (state.isSuccess == true) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: CustomSnakeBar(
+                                text: 'add Reel is success',
+                              ),
+                              backgroundColor:
+                                  Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                              elevation: 0,
+                              behavior: SnackBarBehavior.floating,
+                              margin: EdgeInsets.only(
+                                top: 20, // مسافة من الأعلى
+                                left: 10,
+                                right: 10,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state.isLoading == true) {
+                          return SizedBox(
+                            height: 300.h,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: AppColors.primary,
+                              ),
+                            ),
+                          );
+                        } else if (state.error != null) {
+                          return SizedBox(
+                            height: 300.h,
+                            child: Center(child: Text(state.error!)),
+                          );
+                        } else if (state.allReels == null ||
+                            state.allReels.isEmpty) {
+                          return SizedBox(
+                            height: 300.h,
+                            child: Container(
+                              child: Text('No product available'),
+                            ),
+                          );
+                        }
+                        return Column(
                           children: [
                             // Row(
                             //   children: [
@@ -111,39 +133,37 @@ class MyReelsPage extends StatelessWidget {
                               ),
                             ),
                           ],
-                        ),
-                        Positioned(
-                          right: 25.w,
-                          bottom: 25.h,
-                          child: FloatingActionButton(
-                            backgroundColor: Colors.transparent,
-
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddReelsPage(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Icon(Icons.add, color: Colors.white),
-                              width: 50.w,
-                              height: 50.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.r),
-                                color: AppColors.primary,
-                                border: Border.all(color: AppColors.primary),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                  right: 30.w,
+                  bottom: 30.h,
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.transparent,
+
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddReelsPage()),
+                      );
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Icon(Icons.add, color: Colors.white),
+                      width: 50.w,
+                      height: 50.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: AppColors.primary,
+                        border: Border.all(color: AppColors.primary),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },

@@ -76,25 +76,31 @@ class HomePageCubit extends Cubit<HomepageState> {
       discount,
       image!,
     );
-    result.fold((error) {}, (data) {
-      List<productdata> all = List.from(state.allProduct);
-      print(all.length);
+    result.fold(
+      (error) {
+        print(error);
+        emit(state.copyWith(error: error));
+      },
+      (data) {
+        List<productdata> all = List.from(state.allProduct);
+        print(all.length);
 
-      all.add(
-        productdata(
-          id: data.id,
-          name: data.name,
-          price: data.price,
-          discount: data.discount,
-          finalPrice: data.finalPrice,
-          mainImage: data.mainImage,
-          category: data.category,
-          isAvailable: true,
-        ),
-      );
-      print(all.length);
-      emit(state.copyWith(allProduct: all));
-    });
+        all.add(
+          productdata(
+            id: data.id,
+            name: data.name,
+            price: data.price,
+            discount: data.discount,
+            finalPrice: data.finalPrice,
+            mainImage: data.mainImage,
+            category: data.category,
+            isAvailable: true,
+          ),
+        );
+        print(all.length);
+        emit(state.copyWith(allProduct: all, isLoadingFecthProductData: true));
+      },
+    );
   }
 
   void deleteProduct(int id) async {
@@ -104,7 +110,7 @@ class HomePageCubit extends Cubit<HomepageState> {
     productdata deletedProduct = all[index];
     all.removeAt(index);
     emit(state.copyWith(allProduct: all));
-    var result = await RemouteDealerDataSource().deleteProduct(id);
+    var result = await data.deleteProduct(id);
     result.fold((e) {
       all.insert(index, deletedProduct);
       emit(state.copyWith(allProduct: all));
@@ -121,7 +127,7 @@ class HomePageCubit extends Cubit<HomepageState> {
     // allReels.insert(index, editReel);
     allProduct[index] = editProduct;
     emit(state.copyWith(allProduct: allProduct));
-    var result = await RemouteDealerDataSource().editAvailabilityProduct(
+    var result = await data.editAvailabilityProduct(
       id,
       !CurrentProduct.isAvailable,
     );
@@ -171,7 +177,7 @@ class HomePageCubit extends Cubit<HomepageState> {
 
   void AddNewCar(
     String brand,
-    String year,
+    int year,
     String model,
     String price,
     String milleage,
@@ -182,6 +188,9 @@ class HomePageCubit extends Cubit<HomepageState> {
     int Door,
     int seats,
     XFile video,
+    String status,
+    double lat,
+    double lon
   ) async {
     var result = await data.AddCars(
       brand,
@@ -196,10 +205,19 @@ class HomePageCubit extends Cubit<HomepageState> {
       Door,
       seats,
       video,
+      status,
+      lat,lon
+
     );
-    result.fold((error) {}, (data) {
-      emit(state.copyWith(isSuccessAddCar: true));
-    });
+    result.fold(
+      (error) {
+        emit(state.copyWith(error: error.massageError));
+        print(error.massageError);
+      },
+      (data) {
+        emit(state.copyWith(isSuccessAddCar: true));
+      },
+    );
   }
 
   void getDataProfile() async {
@@ -217,15 +235,25 @@ class HomePageCubit extends Cubit<HomepageState> {
     String OpenTime,
     String lat,
     String lot,
+    List<String> day,
   ) async {
-    // var result = await data.editDataProfile(
-    //   name,
-    //   description,
-    //   phone,
-    //   closeTime,
-    //   OpenTime,
-    //   lat,
-    //   lot,
-    // );
+    var result = await data.editDataProfile(
+      name,
+      description,
+      phone,
+      closeTime,
+      OpenTime,
+      lat,
+      lot,
+      day,
+    );
+    result.fold(
+      (e) {
+        emit(state.copyWith(error: e.massageError));
+      },
+      (data) {
+        emit(state.copyWith(isSuccessEditProduct: true));
+      },
+    );
   }
 }

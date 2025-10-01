@@ -13,10 +13,10 @@ class currentReelEditWidget extends StatelessWidget {
       children: [
         Text('Current Reel', style: AppTextStyle.poppins514),
         SizedBox(height: 12.2.w),
-        Container(
-          child: VideoPlayerWidget(videoUrl: link),
-          height: 300.h, // طول الـ Container
-          width: 168.w, // إذا تريد أن يعرض كامل الشاشة
+        Container(alignment: Alignment(0, -10),
+          child: Center(child: VideoPlayerWidget(videoUrl: link)),
+          height: 293.h, // طول الـ Container
+          width: 158.w, // إذا تريد أن يعرض كامل الشاشة
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 9, 9, 9), // لون الخلفية
             borderRadius: BorderRadius.circular(12), // حواف مدورة (اختياري)

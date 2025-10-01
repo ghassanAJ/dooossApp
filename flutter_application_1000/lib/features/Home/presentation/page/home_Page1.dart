@@ -51,13 +51,13 @@ class HomePage1 extends StatelessWidget {
                 ),
                 child: BlocListener<AuthCubit, AuthState>(
                   listener: (context, state) {
-                    if (state.dataUser != null) {
-                      print('okeyyyyyy');
-                      CustomSnakeBar(text: 'okey', isFailure: false);
-                      BlocProvider.of<AppManagerCubit>(
-                        context,
-                      ).savedDataUser(state.dataUser!);
-                    }
+                    // if (state.dataUser != null) {
+                    //   print('okey');
+                    //   CustomSnakeBar(text: 'okey', isFailure: false);
+                    //   BlocProvider.of<AppManagerCubit>(
+                    //     context,
+                    //   ).savedDataUser(state.dataUser!);
+                    // }
                   },
                   child: AppBar(
                     backgroundColor: Color(0xffffffff),
@@ -72,12 +72,26 @@ class HomePage1 extends StatelessWidget {
                               onPressed: () {
                                 BlocProvider.of<AuthCubit>(context).SignIn();
                               },
-                              icon: Icon(Icons.notification_add, size: 20),
+                              icon: Icon(Icons.notifications, size: 20),
                             ),
                             SizedBox(width: 10.w),
                             GestureDetector(
                               onTap: () {
-                                RemouteDealerDataSource().getDataStoreProfile();
+                                // RemouteDealerDataSource().getDataStoreProfile();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: CustomSnakeBar(text: 'ghassan'),
+                                    backgroundColor: Colors
+                                        .transparent, // ⬅️ جعل الخلفية شفافة
+                                    elevation: 0,
+                                    behavior: SnackBarBehavior.floating,
+                                    margin: EdgeInsets.only(
+                                      top: 20, // مسافة من الأعلى
+                                      left: 10,
+                                      right: 10,
+                                    ),
+                                  ),
+                                );
                               },
                               child: CircleAvatar(
                                 radius: 18.r,
@@ -129,22 +143,22 @@ class HomePage1 extends StatelessWidget {
                       return StoreInfoCardWidget(
                         infoStore: [
                           StoreInfoState(
-                            icon: Icons.abc,
+                            icon: 'assets/icons/cart.svg',
                             labal: 'Total Items',
                             value: state.dataDash.cars!.active,
                           ),
                           StoreInfoState(
-                            icon: Icons.visibility_sharp,
+                            icon: 'assets/icons/eye.svg',
                             labal: 'Store Views',
                             value: state.dataDash.reels!.views,
                           ),
                           StoreInfoState(
-                            icon: Icons.abc,
+                            icon: 'assets/icons/massage.svg',
                             labal: 'massages',
                             value: state.dataDash.messages!.messagesNew,
                           ),
                           StoreInfoState(
-                            icon: Icons.attach_money,
+                            icon: 'assets/icons/coin.svg',
                             labal: 'Total Sales',
                             value: state.dataDash.cars!.sold,
                           ),
@@ -205,3 +219,74 @@ class HomePage1 extends StatelessWidget {
 //                 ],
 //               ),
 //             ),
+
+abstract class Validator {
+  /// Validate international phone number (e.g., +1234567890)
+  static String? phoneValidation(String? phone) {
+    final phoneRegex = RegExp(r'^\+[0-9]{9,15}$');
+    if (phone == null || !phoneRegex.hasMatch(phone)) {
+      return 'Phone is not valid';
+    }
+    return null;
+  }
+
+  /// Validate email format
+  static String? emailValidation(String? email) {
+    email = email?.trim();
+    bool valid = RegExp(
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$',
+    ).hasMatch(email ?? '');
+
+    if (!valid) {
+      return "Email is not valid";
+    }
+    return null;
+  }
+
+  /// Validate not null or empty field
+  static String? notNullValidation(String? str) =>
+      (str == null || str.isEmpty) ? 'This field is required' : null;
+
+  /// Validate and return empty string if null
+  static String? notNullValidationValue(String? str) =>
+      (str == null || str.isEmpty) ? '' : null;
+
+  /// Validate phone number length
+  static String? validatePhone(String? value) {
+    if (value == null || value.isEmpty || value.length < 8) {
+      return 'Not correct';
+    }
+    return null;
+  }
+
+  /// Validate password with context for localization
+  static String? validatePassword(String? value, BuildContext context) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter Password';
+    } else if (value.length < 8 || value.length > 32) {
+      return 'Password must be 8-32 characters';
+    }
+    return null;
+  }
+
+  /// Validate date of birth in YYYY-MM-DD format
+  static String? validateDateOfBirth(String? value) {
+    final regex = RegExp(
+      r"^(19|20)\d\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$",
+    );
+    if (value == null || !regex.hasMatch(value)) {
+      return 'Date of birth is not valid, please enter YYYY-MM-DD';
+    }
+    return null;
+  }
+
+  /// Validate name (at least 3 characters)
+  static String? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Name cannot be empty!';
+    } else if (value.length < 3) {
+      return 'Name must be at least 3 characters!';
+    }
+    return null;
+  }
+}

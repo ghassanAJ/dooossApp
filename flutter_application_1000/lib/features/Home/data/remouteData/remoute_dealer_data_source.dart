@@ -8,6 +8,7 @@ import 'package:flutter_application_1000/Core/network/failure.dart';
 import 'package:flutter_application_1000/features/Home/data/models/dashboard_info_model.dart';
 import 'package:flutter_application_1000/features/Home/data/models/data_profile_models.dart';
 import 'package:flutter_application_1000/features/Home/data/models/product_data_model.dart';
+import 'package:flutter_application_1000/features/Home/presentation/widget/priceAndQuantityWidget.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RemouteDealerDataSource {
@@ -15,13 +16,15 @@ class RemouteDealerDataSource {
     'Authorization':
         'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxMTIyMzE5LCJpYXQiOjE3NTg1MzAzMTksImp0aSI6IjVmMzljYzkyOTRjMTQ0YzdiNDk1OTMwODc4NWE0OTIwIiwidXNlcl9pZCI6IjMifQ.XIHFtjThZGYEbPDXRZZB41bw9q0Yrqd1uL-g723gg1A',
   };
-  Dio dio = Dio();
+  final Dio dio;
+
+  RemouteDealerDataSource({required this.dio});
   Future<Either<Failure, List<productdata>>> getDataProduct() async {
     try {
-      // var url = Uri.parse('http://localhost:8010/api/products/');
+      var url = Uri.parse('http://10.0.2.2:8010/api/products/');
       var response = await dio.get(
         'http://10.0.2.2:8010/api/products/',
-        options: Options(headers: header),
+        // options: Options(headers: header),
       );
       List<productdata> responsedata = (response.data as List).map((item) {
         return productdata.fromMap(item);
@@ -69,10 +72,11 @@ class RemouteDealerDataSource {
     });
 
     try {
+      print(dio.options.headers);
       var response = await dio.post(
         'http://10.0.2.2:8010/api/products/',
         data: dat1a,
-        options: Options(headers: header),
+        // options: Options(headers: header),
       );
       productdata data = productdata(
         id: response.data['id'],
@@ -95,9 +99,11 @@ class RemouteDealerDataSource {
 
   Future<Either<String, void>> deleteProduct(int id) async {
     try {
-      var response = await dio.delete(
-        'http://10.0.2.2:8010/api/products/$id/',
-        options: Options(headers: header),
+      var url = Uri.parse('http://10.0.2.2:8010/api/products/$id/');
+      print(dio.options.headers);
+      var response = await dio.deleteUri(
+        url,
+        // options: Options(headers: header),
       );
       if (response.statusCode == 204) {
         print('okey');
@@ -115,12 +121,13 @@ class RemouteDealerDataSource {
     int id,
     bool currentValue,
   ) async {
+    print(dio.options.headers);
     var url = '${AppUrl.BaseUrl}/dealers/products/$id/availability/';
     var data = {"available": currentValue};
     try {
       var response = await dio.patch(
         url,
-        options: Options(headers: header),
+        // options: Options(headers: header),
         data: data,
       );
       if (response.statusCode == 200) {
@@ -138,9 +145,12 @@ class RemouteDealerDataSource {
   }
 
   Future<Either<Failure, DealerDashboardInfo>> getDataDashboard() async {
-    var url = 'http://localhost:8010/dealers/dashboard/';
+    var url = '${AppUrl.BaseUrl}/dealers/dashboard/';
     try {
-      var response = await dio.get(url, options: Options(headers: header));
+      var response = await dio.get(
+        url,
+        //  options: Options(headers: header)
+      );
       print(response.data);
       DealerDashboardInfo data = DealerDashboardInfo.fromMap(response.data);
       return right(data);
@@ -149,9 +159,9 @@ class RemouteDealerDataSource {
     }
   }
 
-  Future<Either<Failure, Car>> AddCars(
+  Future<Either<Failure, bool>> AddCars(
     String brand,
-    String year,
+    int year,
     String Model,
     String price,
     String milleage,
@@ -162,14 +172,18 @@ class RemouteDealerDataSource {
     int Door,
     int seats,
     XFile image,
+    String Status,
+    double lat,
+    double lon,
   ) async {
+    print(dio.options.headers);
     var deta = {
       "name": "M5",
       "brand": brand,
       "model": Model,
       "price": price,
       "year": 2023,
-      "kilometers": milleage,
+      "kilometers": 100000,
       "fuel_type": typeFuel,
       "transmission": Transmissiion,
       "engine_capacity": engineSize, //////
@@ -177,7 +191,7 @@ class RemouteDealerDataSource {
       "color": "White",
       "doors_count": Door,
       "seats_count": seats,
-      "status": "new",
+      "status": Status,
       "license_status": "licensed",
       "discount": "0.00",
       "lat": 33.514,
@@ -185,47 +199,46 @@ class RemouteDealerDataSource {
     };
 
     var data = FormData.fromMap({
-      'image': [
-        await MultipartFile.fromFile(image.path, filename: image.name),
-        // await MultipartFile.fromFile(
-        //   '/C:/Users/ASUS/Pictures/Screenshots/لقطة شاشة 2025-09-21 073214.png',
-        //   filename:
-        //       '/C:/Users/ASUS/Pictures/Screenshots/لقطة شاشة 2025-09-21 073214.png',
-        // ),
+      'files': [
+        await MultipartFile.fromFile(image.path, filename: '/path/to/file'),
+        // await MultipartFile.fromFile('/path/to/file', filename: '/path/to/file')
       ],
       'name': 'Model S',
       'brand': brand,
-      'model': Model,
+      'model': 2023, //int
       'price': price,
-      'discount': 0,
-      'year': year,
-      'kilometers': milleage,
+      'discount': '0',
+      'year': year, //int
+      'kilometers': 0, // int ///
       'fuel_type': typeFuel,
       'transmission': Transmissiion,
       'engine_capacity': engineSize,
       'drive_type': Drivetrain,
       'color': 'White',
       'is_available': 'true',
-      'doors_count': Door,
-      'seats_count': seats,
+      'doors_count': 4, //int//int
+      'seats_count': 5, //int
       'status': 'new',
       'license_status': 'licensed',
-      'lat': '25.2048',
-      'lon': '55.2708',
+      'lat': 25.2048, //int
+      'lon': 55.2708, //int
       'is_main': 'true',
     });
-
-    var url = 'http://10.0.2.2:8010/cars/';
+    print('*******${dio.options.headers}*******');
+    print(Model);
+    print(year);
+    print(seats);
+    var url = Uri.parse('${AppUrl.BaseUrl}/cars/');
     try {
-      var response = await dio.post(
+      var response = await dio.postUri(
         url,
-        options: Options(headers: header),
+        // options: Options(headers: header),
         data: data,
       );
-      Car addedDataCar = Car.fromJson(response.data);
+      // Car addedDataCar = Car.fromJson(response.data);
 
       print(response.data);
-      return right(addedDataCar);
+      return right(true);
     } catch (error) {
       print(error.toString());
       return left(Failure.handleExcaption(error));
@@ -268,7 +281,7 @@ class RemouteDealerDataSource {
     print(data.fields);
     try {
       var response = await dio.patch(
-        'http://10.0.2.2:8010/api/products/$id/',
+        '${AppUrl.BaseUrl}/products/$id/',
         data: data,
         options: Options(headers: header),
       );
@@ -287,7 +300,7 @@ class RemouteDealerDataSource {
   }
 
   Future<Either<Failure, DataProfileModel>> getDataStoreProfile() async {
-    var url = 'http://10.0.2.2:8010/api/dealers/me/profile/';
+    var url = '${AppUrl.BaseUrl}/dealers/me/profile/';
     try {
       var response = await dio.get(url, options: Options(headers: header));
       print(response.data);
@@ -309,9 +322,9 @@ class RemouteDealerDataSource {
     String lot,
     List<String> day,
   ) async {
-    print(lat);
-    var url = 'http://10.0.2.2:8010/api/dealers/me/profile/';
-    print('------------');
+    //
+    var url = '${AppUrl.BaseUrl}/dealers/me/profile/';
+    print('-------${dio.options.headers}-----');
     print(OpenTime.runtimeType);
     var data = FormData.fromMap({
       'bio': 'agent',
@@ -331,13 +344,19 @@ class RemouteDealerDataSource {
     try {
       var response = await dio.request(
         url,
-        options: Options(method: 'PATCH', headers: header),
+        options: Options(
+          method: 'PATCH',
+          // headers: header
+        ),
         data: data,
       );
       DataProfileModel responsedata = DataProfileModel.fromMap(response.data);
       print(response.data);
       return right(responsedata);
     } catch (e) {
+      if (e is DioException) {
+        e.response!.statusMessage;
+      }
       print(e.toString());
       return left(Failure.handleExcaption(e));
     }

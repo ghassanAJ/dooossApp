@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
+import 'package:flutter_application_1000/Core/style/app_text_style.dart';
 import 'package:flutter_application_1000/features/reels/presentation/manager/reels_state_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,26 +29,53 @@ class _CustomUploadVideoWidgetState extends State<CustomUploadVideoWidget> {
       ),
       child: Column(
         children: [
-          Icon(Icons.videocam, color: AppColors.silverDark, size: 28),
-          Text(
-            'Tap to upload or drag & drop',
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: Color(0xff4B5563),
-              fontFamily: 'poppins',
-            ),
+          Icon(Icons.videocam, color: AppColors.silverDark, size: 32),
+          ValueListenableBuilder(
+            valueListenable: image,
+            builder: (context, value, child) {
+              if (value != null) {
+                return Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.download_done_outlined,
+                      color: AppColors.primary,
+                    ),
+                    SizedBox(width: 12.w),
+                    Text(
+                      'Upload Video is success',
+                      style: AppTextStyle.poppinsw416Gray,
+                    ),
+                       SizedBox(height: 12.h),
+                  ],
+                );
+              } else {
+                return Column(
+                  children: [
+                    Text(
+                      'Tap to upload or drag & drop',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Color(0xff4B5563),
+                        fontFamily: 'poppins',
+                      ),
+                    ),
+                    Text(
+                      '.mp4 / .mov • Max 60s • Max 100MB',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: AppColors.silverDark,
+                        fontFamily: 'poppins',
+                      ),
+                    ),
+                    SizedBox(height: 12.h),
+                  ],
+                );
+              }
+            },
           ),
-          Text(
-            '.mp4 / .mov • Max 60s • Max 100MB',
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: AppColors.silverDark,
-              fontFamily: 'poppins',
-            ),
-          ),
-          SizedBox(height: 12.h),
+
           InkWell(
             onTap: () async {
               final ImagePicker _picker = ImagePicker();
@@ -60,6 +88,7 @@ class _CustomUploadVideoWidgetState extends State<CustomUploadVideoWidget> {
                 context,
               ).setVidoeValue(galleryVideo);
               print(galleryVideo!.path);
+              image.value = galleryVideo;
             },
             child: Container(
               width: 142.w,

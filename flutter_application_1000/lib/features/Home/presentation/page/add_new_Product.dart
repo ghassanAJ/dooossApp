@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1000/Core/network/service_locator.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
+import 'package:flutter_application_1000/features/Home/data/remouteData/home_page_state.dart';
 import 'package:flutter_application_1000/features/Home/data/remouteData/remoute_dealer_data_source.dart';
 import 'package:flutter_application_1000/features/Home/presentation/manager/home_page_cubit.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/edit_Prodect_page.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/Add_brand_widget.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/Category_Section_widget.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/Custom_Button_With_icon.dart';
@@ -27,92 +30,146 @@ class AddNewProductPage extends StatelessWidget {
     TextEditingController quintity = TextEditingController();
     String category = 'rims';
     XFile? image = XFile('');
-    return Scaffold(
-      appBar: CustomAppBar(
-        backgroundColor: Color(0xffffffff),
+    final _form = GlobalKey<FormState>();
+    return Form(
+      key: _form,
+      child: Scaffold(
+        appBar: CustomAppBar(
+          backgroundColor: Color(0xffffffff),
 
-        title: 'Add New Product',
-        subtitle: 'Fill the details below to add a new item to\nyour store',
-        ontap: () {},
-      ),
-      backgroundColor: AppColors.background,
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                formProductAndDescrictionWidget(
-                  product: product,
-                  Description: Description,
-                ),
-                BrandWidget(),
-                CategoryWidget(
-                  categoryselected: (value) {
-                    category = value;
-                    print(value);
-                  },
-                ),
-                SizedBox(height: 16.h),
-                priceAndQuantityWidget(price: price, quantity: quintity),
-                SizedBox(height: 16.h),
-                availabilitySectionWidget(),
-                SizedBox(height: 16.h),
-                uploadProductImagesWidget(
-                  Setimage: (value) {
-                    image = value;
-                  },
-                ),
-                Divider(color: AppColors.borderColor, height: 1),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(top: 24.h, bottom: 16.h),
-                        alignment: Alignment.center,
-                        height: 56.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: AppColors.borderColor,
-                            width: 2,
+          title: 'Add New Product',
+          subtitle: 'Fill the details below to add a new item to\nyour store',
+          ontap: () {},
+        ),
+        backgroundColor: AppColors.background,
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  formProductAndDescrictionWidget(
+                    product: product,
+                    Description: Description,
+                  ),
+                  // BrandWidget(),
+                  CategoryWidget(
+                    categoryselected: (value) {
+                      category = value;
+                      print(value);
+                    },
+                  ),
+                  SizedBox(height: 16.h),
+                  priceAndQuantityWidget(price: price, quantity: quintity),
+                  SizedBox(height: 16.h),
+                  // availabilitySectionWidget(),
+                  // SizedBox(height: 16.h),
+                  uploadProductImagesWidget(
+                    Setimage: (value) {
+                      image = value;
+                    },
+                  ),
+                  Divider(color: AppColors.borderColor, height: 1),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(top: 24.h, bottom: 16.h),
+                          alignment: Alignment.center,
+                          height: 56.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: AppColors.borderColor,
+                              width: 2,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.close, color: AppColors.BlueDark),
+                              Text(
+                                'Cancel',
+                                style: AppTextStyle.poppins514BlueDark,
+                              ),
+                            ],
                           ),
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.close, color: AppColors.BlueDark),
-                            Text(
-                              'Cancel',
-                              style: AppTextStyle.poppins514BlueDark,
-                            ),
-                          ],
+                      ),
+                      SizedBox(width: 6.w),
+
+                      Expanded(
+                        child: BlocConsumer<HomePageCubit, HomepageState>(
+                          listener: (context, state) {
+                            if (state.isLoadingFecthProductData == true) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: CustomSnakeBar(
+                                    text: 'added product',
+                                  ),
+                                  backgroundColor: Colors
+                                      .transparent, // ⬅️ جعل الخلفية شفافة
+                                  elevation: 0,
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.only(
+                                    top: 20, // مسافة من الأعلى
+                                    left: 10,
+                                    right: 10,
+                                  ),
+                                ),
+                              );
+                              BlocProvider.of<HomePageCubit>(
+                                context,
+                              ).getDataProfile();
+                              Navigator.pop(context);
+                            } else if (state.error != null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: CustomSnakeBar(
+                                    text: state.error!,
+                                    isFailure: true,
+                                  ),
+                                  backgroundColor: Colors
+                                      .transparent, // ⬅️ جعل الخلفية شفافة
+                                  elevation: 0,
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.only(
+                                    top: 20, // مسافة من الأعلى
+                                    left: 10,
+                                    right: 10,
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                          builder: (context, state) {
+                            return CustomButtonWithIcon(
+                              type: 'add product',
+                              iconButton: Icons.add,
+                              ontap: () {
+                                if (_form.currentState!.validate()) {
+                                  print(image!.path);
+                                  BlocProvider.of<HomePageCubit>(
+                                    context,
+                                  ).addProduct(
+                                    product.text,
+                                    Description.text,
+                                    price.text,
+                                    category,
+                                    quintity.text,
+                                    image,
+                                  );
+                                }
+                              },
+                            );
+                          },
                         ),
                       ),
-                    ),
-                    SizedBox(width: 6.w),
-
-                    Expanded(
-                      child: CustomButtonWithIcon(
-                        type: 'add product',
-                        iconButton: Icons.add,
-                        ontap: () {
-                          print(image!.path);
-                          BlocProvider.of<HomePageCubit>(context).addProduct(
-                            product.text,
-                            Description.text,
-                            price.text,
-                            category,
-                            quintity.text,
-                            image,
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

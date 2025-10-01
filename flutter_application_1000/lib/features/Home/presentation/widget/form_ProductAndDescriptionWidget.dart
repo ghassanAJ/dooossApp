@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/home_Page1.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -49,6 +50,7 @@ class formProductAndDescrictionWidget extends StatelessWidget {
                 width: 324.w,
                 height: 50.h,
                 child: TextFormField(
+                  validator: (value) => Validator.notNullValidation(value),
                   controller: product,
                   decoration: InputDecoration(
                     hintText: 'e.g., Brake Pads - Toyota',
@@ -90,6 +92,7 @@ class formProductAndDescrictionWidget extends StatelessWidget {
                 width: 324.w,
 
                 child: TextFormField(
+                  validator: (value) => Validator.notNullValidation(value),
                   controller: Description,
                   maxLines: 3,
                   decoration: InputDecoration(

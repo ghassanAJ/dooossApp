@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
+import 'package:flutter_application_1000/features/Home/data/remouteData/home_page_state.dart';
 import 'package:flutter_application_1000/features/Home/data/remouteData/remoute_dealer_data_source.dart';
 import 'package:flutter_application_1000/features/Home/presentation/manager/home_page_cubit.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/edit_Prodect_page.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/google_map.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/Appearance_and_colors_widget.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/Custom_Button_With_icon.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/basic_information_widget.dart';
@@ -15,6 +18,7 @@ import 'package:flutter_application_1000/features/Home/presentation/widget/spaci
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddNewCarPage extends StatefulWidget {
@@ -33,8 +37,11 @@ class AddNewCarPage extends StatefulWidget {
   String drivetrain = 'FWD';
   int Doors = 4;
   int seats = 5;
+  String status = 'new';
   int? year = 2024;
   ValueNotifier<XFile?> image = ValueNotifier(null);
+  double lat = 0.0;
+  double lon = 0.0;
 }
 
 class _AddNewCarPageState extends State<AddNewCarPage> {
@@ -44,6 +51,7 @@ class _AddNewCarPageState extends State<AddNewCarPage> {
     super.initState();
   }
 
+  final _form = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,106 +71,164 @@ class _AddNewCarPageState extends State<AddNewCarPage> {
           ),
           child: AppBar(
             backgroundColor: Color(0xffffffff),
-            leading: Icon(Icons.arrow_back, color: Color(0xff4B5563)),
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back, color: Color(0xff4B5563)),
+            ),
             centerTitle: true,
             title: Text('Add New car', style: AppTextStyle.poppins720black),
           ),
         ),
       ),
       backgroundColor: AppColors.background,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(17.r),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              BasicInformtionWidget(
-                getDataBrand: (value) {
-                  widget.brand = value!;
-                  print(value);
-                },
-                status: (value) {
-                  print(value);
-                },
-                model: widget.model,
-                price: widget.price,
-                mileage: widget.mileage,
-                engineSize: widget.engineSize,
-                year: (value) {
-                  widget.year = value;
-                  print(value);
-                },
+      body: BlocListener<HomePageCubit, HomepageState>(
+        listener: (context, state) {
+          if (state.isSuccessAddCar == true) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: CustomSnakeBar(text: 'Add Car is Success'),
+                backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                elevation: 0,
+                behavior: SnackBarBehavior.floating,
+                margin: EdgeInsets.only(
+                  top: 20, // مسافة من الأعلى
+                  left: 10,
+                  right: 10,
+                ),
               ),
-              SizedBox(height: 24.h),
-              SpecificationsWidget(
-                Transmission: (value) {
-                  widget.transmission = value;
-                },
-                Drivetrain: (value) {
-                  widget.drivetrain = value;
-                },
-                Door: (value) {
-                  widget.Doors = value;
-                },
-                seats: (value) {
-                  widget.seats = value;
-                },
-                fuelType: (value) {
-                  widget.typeFuel = value;
-                  print(value);
-                },
+            );
+          } else if (state.error != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: CustomSnakeBar(text: state.error!, isFailure: true),
+                backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                elevation: 0,
+                behavior: SnackBarBehavior.floating,
+                margin: EdgeInsets.only(
+                  top: 20, // مسافة من الأعلى
+                  left: 10,
+                  right: 10,
+                ),
               ),
-              SizedBox(height: 24.h),
-              AppearanceAndColorsWidget(color: widget.color),
-              SizedBox(height: 24.h),
+            );
+          }
+        },
 
-              featuresAndOptionsWidget(),
-              imageAndMediaOfAddCar(widget: widget),
+        child: Form(
+          key: _form,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(17.r),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  BasicInformtionWidget(
+                    getDataBrand: (value) {
+                      widget.brand = value!;
+                      print(value);
+                    },
+                    status: (value) {
+                      widget.status = value;
+                      print(value);
+                    },
+                    model: widget.model,
+                    price: widget.price,
+                    mileage: widget.mileage,
+                    engineSize: widget.engineSize,
+                    year: (value) {
+                      widget.year = value;
+                      print(value);
+                    },
+                  ),
+                  SizedBox(height: 24.h),
+                  SpecificationsWidget(
+                    Transmission: (value) {
+                      widget.transmission = value;
+                    },
+                    Drivetrain: (value) {
+                      widget.drivetrain = value;
+                    },
+                    Door: (value) {
+                      widget.Doors = value;
+                    },
+                    seats: (value) {
+                      widget.seats = value;
+                    },
+                    fuelType: (value) {
+                      widget.typeFuel = value;
+                      print(value);
+                    },
+                  ),
+                  SizedBox(height: 24.h),
+                  AppearanceAndColorsWidget(
+                    color: widget.color,
+                    lat: (value) {
+                      widget.lat = value;
+                    },
+                    lon: (value) {
+                      widget.lon = value;
+                    },
+                  ),
+                  // SizedBox(height: 24.h),
 
-              CustomButtonWithIcon(
-                type: 'add car',
-                iconButton: Icons.add,
-                ontap: () {
-                  print(widget.brand);
-                  // RemouteDealerDataSource().AddCars();
-                  print(widget.model.text);
-                  print(widget.price.text);
-                  print(widget.Doors);
-                  print(widget.drivetrain);
-                  print(widget.typeFuel);
-                  print(widget.transmission);
-                  print(widget.image.value!.path);
-                  // RemouteDealerDataSource().AddCars(
-                  //   widget.brand,
-                  //   (widget.year).toString(),
-                  //   widget.model.text,
-                  //   widget.price.text,
-                  //   widget.mileage.text,
-                  //   widget.engineSize.text,
-                  //   widget.typeFuel,
-                  //   widget.transmission,
-                  //   widget.drivetrain,
-                  //   widget.Doors,
-                  //   widget.seats,
-                  //   widget.image.value!,
-                  // );
-                  BlocProvider.of<HomePageCubit>(context).AddNewCar(
-                    widget.brand,
-                    (widget.year).toString(),
-                    widget.model.text,
-                    widget.price.text,
-                    widget.mileage.text,
-                    widget.engineSize.text,
-                    widget.typeFuel,
-                    widget.transmission,
-                    widget.drivetrain,
-                    widget.Doors,
-                    widget.seats,
-                    widget.image.value!,
-                  );
-                },
+                  // featuresAndOptionsWidget(),
+                  imageAndMediaOfAddCar(widget: widget),
+                  SizedBox(height: 20.h),
+
+                  CustomButtonWithIcon(
+                    type: 'add car',
+                    iconButton: Icons.add,
+                    ontap: () {
+                      // print(widget.brand);
+                      // // RemouteDealerDataSource().AddCars();
+                      // print(widget.model.text);
+                      // print(widget.price.text);
+                      // print(widget.Doors);
+                      // print(widget.drivetrain);
+                      // print(widget.typeFuel);
+                      // print(widget.transmission);
+                      // print(widget.image.value!.path);
+                      print(widget.status);
+                      // RemouteDealerDataSource().AddCars(
+                      //   widget.brand,
+                      //   (widget.year).toString(),
+                      //   widget.model.text,
+                      //   widget.price.text,
+                      //   widget.mileage.text,
+                      //   widget.engineSize.text,
+                      //   widget.typeFuel,
+                      //   widget.transmission,
+                      //   widget.drivetrain,
+                      //   widget.Doors,
+                      //   widget.seats,
+                      //   widget.image.value!,
+                      // );
+
+                      if (_form.currentState!.validate())
+                        BlocProvider.of<HomePageCubit>(context).AddNewCar(
+                          widget.brand,
+                          widget.year!,
+                          widget.model.text,
+                          widget.price.text,
+                          widget.mileage.text,
+                          widget.engineSize.text,
+                          widget.typeFuel,
+                          widget.transmission,
+                          widget.drivetrain,
+                          widget.Doors,
+                          widget.seats,
+                          widget.image.value!,
+                          widget.status,
+                          widget.lat,
+                          widget.lon,
+                        );
+                    },
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

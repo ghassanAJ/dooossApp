@@ -12,6 +12,8 @@ class CustomFormWithTitleWidget extends StatelessWidget {
     this.isImportant = false,
     this.isOption = false,
     this.wid,
+    required this.validation,
+    this.isNum,
   });
   final bool? isImportant;
   final TextEditingController model;
@@ -20,7 +22,8 @@ class CustomFormWithTitleWidget extends StatelessWidget {
   final int? lineNum;
   final bool isOption;
   final double? wid;
-
+  final bool? isNum;
+  final Function(String? value) validation;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -49,6 +52,9 @@ class CustomFormWithTitleWidget extends StatelessWidget {
           width: wid == null ? 324.w : wid,
           // height: 50.h,
           child: TextFormField(
+            validator: (value) {
+              validation(value);
+            },
             maxLines: lineNum,
             controller: model,
             decoration: InputDecoration(hintText: hintForm),

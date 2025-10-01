@@ -32,7 +32,7 @@ class uploadProductImagesWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              SvgPicture.asset('assets/icons/coin.svg'),
+              Icon(Icons.image, color: AppColors.primary),
               SizedBox(width: 4.w),
               Text(
                 'product images',

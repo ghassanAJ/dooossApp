@@ -51,6 +51,7 @@ class locationAndAvailability extends StatelessWidget {
               children: [
                 //  Icon(Icons.map_outlined)
                 CustomFormWithTitleWidget(
+                  validation: (val) {},
                   model: TextEditingController(),
                   hintForm: 'Enter address or pin location',
                   title: 'Service Area ',

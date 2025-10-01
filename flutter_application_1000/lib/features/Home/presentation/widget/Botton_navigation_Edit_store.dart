@@ -78,19 +78,7 @@ class productInfoCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 60,
-            height: 60,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                'http://10.0.2.2:8010${item.mainImage ?? ''}',
-                width: 60.w,
-                height: 60.w,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          ImageProduct(item: item.mainImage),
           SizedBox(width: 12.w),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -209,6 +197,61 @@ class productInfoCard extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+// class imageProduct extends StatelessWidget {
+//   const imageProduct({
+//     super.key,
+//     required this.item,
+//   });
+
+//   final String? item;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: 60,
+//       height: 60,
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(10),
+//         child: Image.network(
+//           'http://10.0.2.2:8010${item.mainImage ?? ''}',
+//           width: 60.w,
+//           height: 60.w,
+//           fit: BoxFit.cover,
+//         ),
+//       ),
+//     );
+//   }
+// }
+class ImageProduct extends StatelessWidget {
+  const ImageProduct({
+    super.key,
+    required this.item,
+  });
+
+  final String? item; // لو string url
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 60,
+      height: 60,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: item == null || item!.isEmpty
+            ? Container(color: Colors.grey[300]) // بدون صورة
+            : Image.network(
+                'http://10.0.2.2:8010$item',
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => 
+                    Container(color: Colors.red[200]), // لو صار خطأ بالتحميل
+              ),
       ),
     );
   }

@@ -38,6 +38,7 @@ class ReelsStateCubit extends Cubit<reelsState> {
     result.fold(
       (failure) {
         print(failure.massageError);
+        emit(state.copyWith(error: failure.massageError));
       },
       (isSuccess) {
         emit(state.copyWith(isSuccess: isSuccess));

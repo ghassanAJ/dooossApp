@@ -4,6 +4,7 @@ import 'package:flutter_application_1000/Core/network/service_locator.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
 import 'package:flutter_application_1000/features/Home/presentation/page/add_new_car_page.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/edit_Prodect_page.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/Custom_Button_With_icon.dart';
 import 'package:flutter_application_1000/features/reels/data/remoute_data_reels_source.dart';
 import 'package:flutter_application_1000/features/reels/presentation/manager/reels_state_cubit.dart';
@@ -70,7 +71,52 @@ class AddReelsPage extends StatelessWidget {
                     // attachProductOrService(),
                     // PublishingOptionsWidget(),
                     // preview_add_reel_widget(),
-                    BlocBuilder<ReelsStateCubit, reelsState>(
+                    BlocConsumer<ReelsStateCubit, reelsState>(
+                      listener: (context, state) {
+                        if (state.isSuccess == true) {
+                          BlocProvider.of<ReelsStateCubit>(
+                            context,
+                          ).getDataReels();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: CustomSnakeBar(
+                                text: 'add reel is success',
+                              ),
+                              backgroundColor:
+                                  Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                              elevation: 0,
+                              behavior: SnackBarBehavior.floating,
+                              margin: EdgeInsets.only(
+                                top: 20, // مسافة من الأعلى
+                                left: 10,
+                                right: 10,
+                              ),
+                            ),
+                          );
+                          BlocProvider.of<ReelsStateCubit>(
+                            context,
+                          ).getDataReels();
+                          Navigator.pop(context);
+                        } else if (state.error != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: CustomSnakeBar(
+                                text: state.error!,
+                                isFailure: true,
+                              ),
+                              backgroundColor:
+                                  Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                              elevation: 0,
+                              behavior: SnackBarBehavior.floating,
+                              margin: EdgeInsets.only(
+                                top: 20, // مسافة من الأعلى
+                                left: 10,
+                                right: 10,
+                              ),
+                            ),
+                          );
+                        }
+                      },
                       builder: (context, state) {
                         return CustomButtonWithIcon(
                           type: 'add reels',

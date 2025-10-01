@@ -25,6 +25,7 @@ class editDetailsWidget extends StatelessWidget {
             Text('Edit Details', style: AppTextStyle.poppins514),
             SizedBox(height: 16.w),
             CustomFormWithTitleWidget(
+              validation: (value) {},
               model: title,
               hintForm: 'title reel',
               title: ' Title',
@@ -32,6 +33,7 @@ class editDetailsWidget extends StatelessWidget {
             ),
             SizedBox(height: 16.h),
             CustomFormWithTitleWidget(
+              validation: (value) {},
               model: descraption,
               hintForm:
                   'Summer collection is here! Check out our\nlatest styles 🌟 #fashion #summer #style',
