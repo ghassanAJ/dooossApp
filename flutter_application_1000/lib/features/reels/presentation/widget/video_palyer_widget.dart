@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
@@ -280,8 +282,9 @@ import 'package:video_player/video_player.dart';
 //   }
 // }
 class VideoPlayerWidget extends StatefulWidget {
-  final String videoUrl;
-  const VideoPlayerWidget({super.key, required this.videoUrl});
+  final String? videoUrl;
+  final String? file;
+  const VideoPlayerWidget({super.key, required this.videoUrl, this.file});
 
   @override
   State<VideoPlayerWidget> createState() => _VideoPlayerWidgetState();
@@ -290,17 +293,26 @@ class VideoPlayerWidget extends StatefulWidget {
 class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   late VideoPlayerController _controller;
   bool showPlayPause = false;
-
+  bool isInitialized = false;
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(widget.videoUrl)
-      ..initialize().then((_) {
-        if (mounted) {
-          setState(() {});
-          _controller.play(); // التشغيل التلقائي
-        }
-      });
+    // 🔹 إذا عندي رابط إنترنت
+    if (widget.videoUrl != null) {
+      _controller = VideoPlayerController.network(widget.videoUrl!);
+    }
+    // 🔹 إذا عندي ملف محلي
+    else if (widget.file != null) {
+      _controller = VideoPlayerController.file(File(widget.file!));
+    } else {
+      throw Exception(" videoUrl / filePath");
+    }
+
+    // _controller = VideoPlayerController.network(widget.videoUrl)
+    _controller.initialize().then((_) {
+      setState(() => isInitialized = true);
+      _controller.play();
+    });
   }
 
   // ✅ بدل dispose بخاصية pause فقط

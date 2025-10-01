@@ -30,7 +30,7 @@ class EditReelsPage extends StatefulWidget {
 }
 
 class _EditReelsPageState extends State<EditReelsPage> {
-  late String? video;
+  late String video;
   @override
   void initState() {
     video = widget.item.video;
@@ -55,7 +55,7 @@ class _EditReelsPageState extends State<EditReelsPage> {
           children: [
             Padding(
               padding: EdgeInsets.all(16.r),
-              child: currentReelEditWidget(),
+              child: currentReelEditWidget(link: video),
             ),
             Divider(height: 1, color: AppColors.borderColor),
             editDetailsWidget(

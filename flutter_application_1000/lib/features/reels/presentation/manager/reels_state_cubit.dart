@@ -33,11 +33,16 @@ class ReelsStateCubit extends Cubit<reelsState> {
     emit(state.copyWith(video: video));
   }
 
-  void AddNewReel(XFile? video,String title,String descraption) async {
+  void AddNewReel(XFile? video, String title, String descraption) async {
     var result = await data.addNewReel(video, title, descraption);
-    result.fold((failure) {}, (isSuccess) {
-      emit(state.copyWith(isSuccess: isSuccess)); 
-    });
+    result.fold(
+      (failure) {
+        print(failure.massageError);
+      },
+      (isSuccess) {
+        emit(state.copyWith(isSuccess: isSuccess));
+      },
+    );
   }
 
   void EditDataReel(

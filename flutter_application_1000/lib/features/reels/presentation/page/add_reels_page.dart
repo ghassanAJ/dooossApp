@@ -77,7 +77,14 @@ class AddReelsPage extends StatelessWidget {
                           iconButton: Icons.add,
                           ontap: () {
                             print(state.video!.path);
-                            remouteDataReelsSource(dio: Dio()).addNewReel(
+                            // remouteDataReelsSource(dio: Dio()).addNewReel(
+                            //   state.video,
+                            //   title.text,
+                            //   descraption.text,
+                            // );
+                            BlocProvider.of<ReelsStateCubit>(
+                              context,
+                            ).AddNewReel(
                               state.video,
                               title.text,
                               descraption.text,

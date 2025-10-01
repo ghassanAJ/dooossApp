@@ -81,6 +81,8 @@ flutter:
     - assets\images\OliFilter.png
     - assets\icons\coin.svg
     - assets\icons\cloud.svg
+    - assets\icons\brand.svg
+    - assets\icons\cart.svg
   fonts:
     - family: poppins
       fonts:
