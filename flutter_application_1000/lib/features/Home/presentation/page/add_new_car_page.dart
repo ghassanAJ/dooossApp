@@ -36,7 +36,7 @@ class AddNewCarPage extends StatefulWidget {
   String transmission = 'Automatic';
   String drivetrain = 'FWD';
   int Doors = 4;
-  int seats = 5;
+  int seats = 2;
   String status = 'new';
   int? year = 2024;
   ValueNotifier<XFile?> image = ValueNotifier(null);
@@ -190,7 +190,7 @@ class _AddNewCarPageState extends State<AddNewCarPage> {
                       // print(widget.typeFuel);
                       // print(widget.transmission);
                       // print(widget.image.value!.path);
-                      print(widget.status);
+                      print(widget.color.text);
                       // RemouteDealerDataSource().AddCars(
                       //   widget.brand,
                       //   (widget.year).toString(),
@@ -224,9 +224,11 @@ class _AddNewCarPageState extends State<AddNewCarPage> {
                           widget.status,
                           widget.lat,
                           widget.lon,
+                          widget.color.text
                         );
-                               }else{
-                       ScaffoldMessenger.of(context).showSnackBar(
+                               }
+                               else if(widget.image==null) {
+                    return   ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: CustomSnakeBar(
                       isFailure: true,
@@ -243,9 +245,7 @@ class _AddNewCarPageState extends State<AddNewCarPage> {
                   ),
                 );
                       
-                               }
-                      
-                      
+                }     
                       }   
                      
                     },

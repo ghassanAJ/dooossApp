@@ -14,6 +14,38 @@ class StatusSection extends StatelessWidget {
   DateTime now = DateTime.now(); // الوقت الحالي
   return now.isAfter(start) && now.isBefore(end);
 }
+bool isNowInSchedule({
+  required List<String> daysList, // مثال: ["sun", "mon", "tue"]
+  required String startTime,      // مثال: "09:00"
+  required String endTime,        // مثال: "18:00"
+}) {
+  // تحويل الأيام لأحرف صغيرة
+  final days = daysList.map((d) => d.toLowerCase().trim()).toList();
+
+  // جلب اليوم الحالي (0=Mon ... 6=Sun)
+  final now = DateTime.now();
+  final weekDays = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+  final today = weekDays[now.weekday - 1];
+
+  // إذا اليوم الحالي مش ضمن الأيام المطلوبة -> false
+  if (!days.contains(today)) return false;
+
+  // تحويل أوقات البداية والنهاية
+  final startParts = startTime.split(':').map(int.parse).toList();
+  final endParts = endTime.split(':').map(int.parse).toList();
+
+  final start = DateTime(now.year, now.month, now.day, startParts[0], startParts[1]);
+  final end = DateTime(now.year, now.month, now.day, endParts[0], endParts[1]);
+
+  // إذا البداية < النهاية (مثال: 09:00 - 18:00)
+  if (start.isBefore(end)) {
+    return now.isAfter(start) && now.isBefore(end);
+  }
+
+  // إذا الفترة تتجاوز منتصف الليل (مثال: 22:00 - 02:00)
+  return now.isAfter(start) || now.isBefore(end);
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +114,12 @@ class StatusSection extends StatelessWidget {
                               color:state.dataStore.isStoreOpen? AppColors.lightGreen:AppColors.redLight,
                               borderRadius: BorderRadius.circular(100),
                             ),
-                            child: Text(state.dataStore.isStoreOpen?
+                            child: Text(isNowInSchedule(daysList: state.dataStore.workingDays,startTime: state.dataStore.openingTime,endTime: state.dataStore.closingTime)??true?
                               'Open':'Close',
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
-                                color:state.dataStore.isStoreOpen? Color(0xff16A34A):AppColors.red,
+                                color:isNowInSchedule(daysList: state.dataStore.workingDays,startTime: state.dataStore.openingTime,endTime: state.dataStore.closingTime)??true? Color(0xff16A34A):AppColors.red,
                               ),
                             ),
                           ),

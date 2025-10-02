@@ -72,8 +72,8 @@ GlobalKey<FormState> form = GlobalKey<FormState>();
     return Scaffold(
       appBar: CustomAppBar(
         backgroundColor: Color(0xffffffff),
-        title: 'Edit Store',
-        subtitle: '',
+        title: 'Edit Store profile',
+        subtitle: 'Keep your store details up to date for better\nvisibility and trust',
         ontap: () {
           BlocProvider.of<HomePageCubit>(context).getDataProfile();
         },

@@ -183,10 +183,11 @@ class RemouteDealerDataSource {
     String Status,
     double lat,
     double lon,
+    String color
   ) async {
     print(dio.options.headers);
     var deta = {
-      "name": "M5",
+      "name": Model, /////تعدييل
       "brand": brand,
       "model": Model,
       "price": price,
@@ -196,7 +197,7 @@ class RemouteDealerDataSource {
       "transmission": Transmissiion,
       "engine_capacity": engineSize, //////
       "drive_type": Drivetrain,
-      "color": "White",
+      "color": color??'white',///////تعديييييل
       "doors_count": Door,
       "seats_count": seats,
       "status": Status,

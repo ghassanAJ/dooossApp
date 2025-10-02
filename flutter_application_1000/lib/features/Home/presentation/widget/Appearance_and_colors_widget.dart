@@ -53,10 +53,7 @@ class AppearanceAndColorsWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 20.h),
                 CustomFormWithTitleWidget(
-                  validation: (value) {
-                    Validator.notNullValidation(value);
-                    print(value);
-                  },
+                  validation: (value)=>  Validator.notNullValidation(value),
                   model: color,
                   hintForm: 'Metallic Red',
                   title: 'Exterior Color',
@@ -93,10 +90,16 @@ class AppearanceAndColorsWidget extends StatelessWidget {
                     );
                   },
                   child: Container(alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.all(8),
-                    child: Text(
-                      'select location ',
-                      style: AppTextStyle.poppins414BD,
+                  
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'select location ',
+                          style: AppTextStyle.poppins514BlueDark,
+                        ),
+                        Icon(Icons.location_pin,color: AppColors.red,)
+                      ],
                     ),
                     width: 358.w,
                     height: 68.h,

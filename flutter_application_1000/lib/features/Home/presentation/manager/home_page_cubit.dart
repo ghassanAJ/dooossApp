@@ -189,7 +189,8 @@ class HomePageCubit extends Cubit<HomepageState> {
     XFile video,
     String status,
     double lat,
-    double lon
+    double lon,
+    String color
   ) async {
     var result = await data.AddCars(
       brand,
@@ -205,7 +206,8 @@ class HomePageCubit extends Cubit<HomepageState> {
       seats,
       video,
       status,
-      lat,lon
+      lat,lon,
+      color
 
     );
     result.fold(

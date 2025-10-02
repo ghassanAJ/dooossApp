@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (_, child) => BlocProvider(
         create: (context) => AppManagerCubit(),
-        child: MaterialApp(
+        child: MaterialApp(debugShowCheckedModeBanner:false,
           title: 'Flutter Demo',
           theme: ThemeData(
             inputDecorationTheme: InputDecorationTheme(

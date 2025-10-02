@@ -121,6 +121,8 @@ class _SpecificationsWidgetState extends State<SpecificationsWidget> {
                         items: [
                           DropdownMenuItem(child: Text('2'), value: 2),
                           DropdownMenuItem(child: Text('4'), value: 4),
+                 
+                     
                         ],
                         hintForm: '4',
                         title: 'Doors',
@@ -135,8 +137,10 @@ class _SpecificationsWidgetState extends State<SpecificationsWidget> {
                         items: [
                           DropdownMenuItem(child: Text('2'), value: 2),
                           DropdownMenuItem(child: Text('4'), value: 4),
+                            DropdownMenuItem(child: Text('5'), value: 5),
+                          DropdownMenuItem(child: Text('7'), value: 7),
                         ],
-                        hintForm: '5',
+                        hintForm: '2',
                         title: 'Seats',
                         CurrentValue: (value) {
                           widget.seats(value);
