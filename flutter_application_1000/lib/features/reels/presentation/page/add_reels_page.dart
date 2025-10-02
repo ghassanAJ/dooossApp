@@ -142,7 +142,7 @@ class AddReelsPage extends StatelessWidget {
                               );
                             }else if(state.video ==null)
                             {
-                           return      ScaffoldMessenger.of(context).showSnackBar(
+                                ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                       content: CustomSnakeBar(
                         isFailure: true,

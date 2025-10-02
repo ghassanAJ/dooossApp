@@ -58,8 +58,9 @@ class remouteDataReelsSource {
       var response = await dio.request(
         url,
         data: data,
-        options: Options(method: 'POST', 
-        // headers: header
+        options: Options(
+          method: 'POST',
+          // headers: header
         ),
       );
       // var response = await dio.post(
@@ -68,6 +69,7 @@ class remouteDataReelsSource {
       //   data: data,
       // );
       print(response.data);
+  
       print('okey');
       return right(true);
     } catch (e) {
