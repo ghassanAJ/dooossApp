@@ -51,48 +51,47 @@ class _EditReelsPageState extends State<EditReelsPage> {
       ),
       backgroundColor: Color(0xffffffff),
       body: SingleChildScrollView(
-        child: BlocListener<ReelsStateCubit,reelsState>(listener: (context, State) {
-          if(State.isSuccess==true){
-
-                   ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: CustomSnakeBar(
-                      // isFailure: true,
-                      text: 'editing reel is success',
-                    ),
-                    backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
-                    elevation: 0,
-                    behavior: SnackBarBehavior.floating,
-                    margin: EdgeInsets.only(
-                      top: 20, // مسافة من الأعلى
-                      left: 10,
-                      right: 10,
-                    ),
+        child: BlocListener<ReelsStateCubit, reelsState>(
+          listener: (context, State) {
+            if (State.isSuccess == true) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: CustomSnakeBar(
+                    // isFailure: true,
+                    text: 'editing reel is success',
                   ),
-                );
-                   BlocProvider.of<ReelsStateCubit>(context).getDataReels();
-                    Navigator.pop(context);
-          }
-          if(State.error!=null){
-             ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: CustomSnakeBar(
-                      isFailure: true,
-                      text: 'edit reel .error',
-                    ),
-                    backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
-                    elevation: 0,
-                    behavior: SnackBarBehavior.floating,
-                    margin: EdgeInsets.only(
-                      top: 20, // مسافة من الأعلى
-                      left: 10,
-                      right: 10,
-                    ),
+                  backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.only(
+                    top: 20, // مسافة من الأعلى
+                    left: 10,
+                    right: 10,
                   ),
-                );
-          }
-
-        },
+                ),
+              );
+              BlocProvider.of<ReelsStateCubit>(context).getDataReels();
+              Navigator.pop(context);
+            }
+            if (State.error != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: CustomSnakeBar(
+                    isFailure: true,
+                    text: 'edit reel .error',
+                  ),
+                  backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.only(
+                    top: 20, // مسافة من الأعلى
+                    left: 10,
+                    right: 10,
+                  ),
+                ),
+              );
+            }
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -109,15 +108,19 @@ class _EditReelsPageState extends State<EditReelsPage> {
                 padding: EdgeInsets.symmetric(vertical: 12.h),
                 child: Divider(height: 1.5, color: AppColors.borderColor),
               ),
-          
+
               replaceVideoWidget(),
-          
+
               Center(
                 child: CustomUploadVideoWidget(
                   video: (value) {
                     print('****');
+
+                    // setState(() {
                     print(value!.path);
                     video = value.path;
+                    // });
+
                     print('****');
                   },
                 ),
@@ -128,7 +131,7 @@ class _EditReelsPageState extends State<EditReelsPage> {
                   iconButton: Icons.save,
                   ontap: () {
                     print(video);
-          
+
                     BlocProvider.of<ReelsStateCubit>(context).EditDataReel(
                       widget.item.id,
                       widget.title.text,
@@ -136,7 +139,6 @@ class _EditReelsPageState extends State<EditReelsPage> {
                       video,
                       widget.item.thumbnail,
                     );
-                 
                   },
                 ),
               ),

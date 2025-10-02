@@ -19,7 +19,7 @@ class CustomButtonWithIcon extends StatelessWidget {
         ontap();
       },
       child: Container(
-        margin: EdgeInsets.only(top: 24.h, bottom: 16.h),
+    
         width: 358.w,
         height: 60.h,
         decoration: BoxDecoration(

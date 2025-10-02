@@ -49,6 +49,39 @@ class BrandAndYearSelectorWIdget extends StatelessWidget {
                   ),
                   items: [
                     DropdownMenuItem<String>(child: Text('BMW'), value: 'BMW'),
+                     DropdownMenuItem<String>(child: Text('Mercedes-banz'), value: 'Mercedes-banz'),
+                        DropdownMenuItem<String>(child: Text('KIA'), value: 'KIA'),
+                           DropdownMenuItem<String>(child: Text('Audi'), value: 'Audi'),
+                              DropdownMenuItem<String>(child: Text('Range Rover'), value: 'Range Rover'),
+                                    DropdownMenuItem<String>(child: Text('Hyundai'), value: 'Hyundai'),
+                     DropdownMenuItem<String>(child: Text('Toyota'), value: 'Toyota'),
+                        DropdownMenuItem<String>(child: Text('Nissan'), value: 'Nissan'),
+                           DropdownMenuItem<String>(child: Text('VolksWagen'), value: 'VolksWagen'),
+                              DropdownMenuItem<String>(child: Text('Honda'), value: 'Honda'),   
+
+
+                                               DropdownMenuItem<String>(child: Text('Chevrolet'), value: 'Chevrolet'),
+                     DropdownMenuItem<String>(child: Text('Genesis'), value: 'Genesis'),
+                        DropdownMenuItem<String>(child: Text('Ford'), value: 'Ford'),
+                           DropdownMenuItem<String>(child: Text('Mitsubishi'), value: 'Mitsubishi'),
+                              DropdownMenuItem<String>(child: Text('Peugeot'), value: 'Peugeot'),
+                                    DropdownMenuItem<String>(child: Text('Mazda'), value: 'Mazda'),
+                     DropdownMenuItem<String>(child: Text('Dodge'), value: 'Dodge'),
+                        DropdownMenuItem<String>(child: Text('Infiniti'), value: 'Infiniti'),
+                           DropdownMenuItem<String>(child: Text('Skoda'), value: 'Skoda'),
+                              DropdownMenuItem<String>(child: Text('Porshe'), value: 'Porshe'),     
+
+
+                           DropdownMenuItem<String>(child: Text('Cadillac'), value: 'Cadillac'),
+                     DropdownMenuItem<String>(child: Text('lexus'), value: 'lexus'),
+                        DropdownMenuItem<String>(child: Text('Opel'), value: 'Opel'),
+                           DropdownMenuItem<String>(child: Text('Jeep'), value: 'Jeep'),
+                              DropdownMenuItem<String>(child: Text('Volvo'), value: 'Volvo'),
+                                    DropdownMenuItem<String>(child: Text('mini'), value: 'mini'),
+                     DropdownMenuItem<String>(child: Text('jaguor'), value: 'jaguor'),
+                        DropdownMenuItem<String>(child: Text('BYD'), value: 'BYD'),
+                           DropdownMenuItem<String>(child: Text('Renault'), value: 'Renault'),
+                              DropdownMenuItem<String>(child: Text('Alfa Romeo'), value: 'Alfa Romeo'),                
                   ],
                   onChanged: (value) {
                     brand = value ?? 'BMW';

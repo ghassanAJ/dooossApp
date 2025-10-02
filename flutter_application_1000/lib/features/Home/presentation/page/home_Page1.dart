@@ -105,15 +105,7 @@ class HomePage1 extends StatelessWidget {
                     ],
                     title: GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => BlocProvider.value(
-                              value: BlocProvider.of<HomePageCubit>(context),
-                              child: AddNewCarPage(),
-                            ),
-                          ),
-                        );
+                    
                       },
                       child: Row(
                         children: [
@@ -168,21 +160,52 @@ class HomePage1 extends StatelessWidget {
                   ),
                   SizedBox(height: 24.h),
                   StatusSection(),
-                  CustomButtonWithIcon(
-                    type: 'Add New Product',
-                    iconButton: Icons.add,
-                    ontap: () {
-                      // RemouteDealerDataSource().AddCars();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => BlocProvider.value(
-                            value: BlocProvider.of<HomePageCubit>(context),
-                            child: AddNewProductPage(),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: CustomButtonWithIcon(
+                            type: 'Add New Product',
+                            iconButton: Icons.add,
+                            ontap: () {
+                              // RemouteDealerDataSource().AddCars();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => BlocProvider.value(
+                                    value: BlocProvider.of<HomePageCubit>(context),
+                                    child: AddNewProductPage(),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
-                      );
-                    },
+                        SizedBox(width: 12.w,),
+                        GestureDetector(onTap: () {
+                              Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider.value(
+                              value: BlocProvider.of<HomePageCubit>(context),
+                              child: AddNewCarPage(),
+                            ),
+                          ),
+                        );
+                        },
+                          child: Container(width: 60.h,
+                              margin: EdgeInsets.only(top: 16.h, bottom: 16.h),
+                          height: 60.h,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: AppColors.secondary,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          child: SvgPicture.asset('assets/icons/car.svg',)),
+                        )
+                      ],
+                    ),
                   ),
                   ProductListwidget(),
                 ],
