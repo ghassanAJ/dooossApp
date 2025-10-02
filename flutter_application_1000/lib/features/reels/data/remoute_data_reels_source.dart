@@ -12,10 +12,10 @@ import 'package:image_picker/image_picker.dart';
 
 class remouteDataReelsSource {
   final Dio dio;
-  var header = {
-    'Authorization':
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxMTE4NjMzLCJpYXQiOjE3NTg1MjY2MzMsImp0aSI6ImM1MGM4NTAyMWM1MDRmYzdiY2JjYmIyMTJkOWQ3NjRiIiwidXNlcl9pZCI6IjIifQ.MUGK14YXsoxMUgEX83kSaaSoijjNfrcynoGM4s66e9k',
-  };
+  // var header = {
+  //   'Authorization':
+  //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxMTE4NjMzLCJpYXQiOjE3NTg1MjY2MzMsImp0aSI6ImM1MGM4NTAyMWM1MDRmYzdiY2JjYmIyMTJkOWQ3NjRiIiwidXNlcl9pZCI6IjIifQ.MUGK14YXsoxMUgEX83kSaaSoijjNfrcynoGM4s66e9k',
+  // };
 
   remouteDataReelsSource({required this.dio});
   Future<Either<String, List<ReelDataModel>>> getDataReels() async {

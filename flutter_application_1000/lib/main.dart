@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
           ),
           home: BlocProvider(
             create: (context) => AuthCubit(getIt<AuthRemouteDataSource>()),
-            child: HomePage1(),
+            child: MyReelsPage(),
           ),
         ),
       ),

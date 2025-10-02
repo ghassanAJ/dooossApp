@@ -13,7 +13,7 @@ class CustomFormWithTitleWidget extends StatelessWidget {
     this.isOption = false,
     this.wid,
     required this.validation,
-    this.isNum,
+     this.isNum,
   });
   final bool? isImportant;
   final TextEditingController model;
@@ -23,6 +23,8 @@ class CustomFormWithTitleWidget extends StatelessWidget {
   final bool isOption;
   final double? wid;
   final bool? isNum;
+
+ 
   final Function(String? value) validation;
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class CustomFormWithTitleWidget extends StatelessWidget {
         SizedBox(
           width: wid == null ? 324.w : wid,
           // height: 50.h,
-          child: TextFormField(
+          child: TextFormField(keyboardType: isNum==true? TextInputType.numberWithOptions():null,
             validator: (value) {
               validation(value);
             },

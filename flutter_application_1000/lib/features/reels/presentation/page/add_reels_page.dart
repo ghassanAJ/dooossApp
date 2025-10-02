@@ -23,6 +23,7 @@ class AddReelsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     GlobalKey<FormState> form =GlobalKey() ;
     TextEditingController title = TextEditingController();
     TextEditingController descraption = TextEditingController();
     return BlocProvider(
@@ -61,85 +62,111 @@ class AddReelsPage extends StatelessWidget {
             body: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.all(16.r),
-                child: Column(
-                  children: [
-                    UploadReelWidget(video: (value) {}),
-                    addReelDetailsWidget(
-                      title: title,
-                      descraption: descraption,
-                    ),
-                    // attachProductOrService(),
-                    // PublishingOptionsWidget(),
-                    // preview_add_reel_widget(),
-                    BlocConsumer<ReelsStateCubit, reelsState>(
-                      listener: (context, state) {
-                        if (state.isSuccess == true) {
-                          BlocProvider.of<ReelsStateCubit>(
-                            context,
-                          ).getDataReels();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: CustomSnakeBar(
-                                text: 'add reel is success',
-                              ),
-                              backgroundColor:
-                                  Colors.transparent, // ⬅️ جعل الخلفية شفافة
-                              elevation: 0,
-                              behavior: SnackBarBehavior.floating,
-                              margin: EdgeInsets.only(
-                                top: 20, // مسافة من الأعلى
-                                left: 10,
-                                right: 10,
-                              ),
-                            ),
-                          );
-                          BlocProvider.of<ReelsStateCubit>(
-                            context,
-                          ).getDataReels();
-                          Navigator.pop(context);
-                        } else if (state.error != null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: CustomSnakeBar(
-                                text: state.error!,
-                                isFailure: true,
-                              ),
-                              backgroundColor:
-                                  Colors.transparent, // ⬅️ جعل الخلفية شفافة
-                              elevation: 0,
-                              behavior: SnackBarBehavior.floating,
-                              margin: EdgeInsets.only(
-                                top: 20, // مسافة من الأعلى
-                                left: 10,
-                                right: 10,
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                      builder: (context, state) {
-                        return CustomButtonWithIcon(
-                          type: 'add reels',
-                          iconButton: Icons.add,
-                          ontap: () {
-                            print(state.video!.path);
-                            // remouteDataReelsSource(dio: Dio()).addNewReel(
-                            //   state.video,
-                            //   title.text,
-                            //   descraption.text,
-                            // );
+                child: Form(key: form,
+                  child: Column(
+                    children: [
+                      UploadReelWidget(video: (value) {}),
+                      addReelDetailsWidget(
+                        title: title,
+                        descraption: descraption,
+                      ),
+                      // attachProductOrService(),
+                      // PublishingOptionsWidget(),
+                      // preview_add_reel_widget(),
+                      BlocConsumer<ReelsStateCubit, reelsState>(
+                        listener: (context, state) {
+                          if (state.isSuccess == true) {
                             BlocProvider.of<ReelsStateCubit>(
                               context,
-                            ).AddNewReel(
-                              state.video,
-                              title.text,
-                              descraption.text,
+                            ).getDataReels();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: CustomSnakeBar(
+                                  text: 'add reel is success',
+                                ),
+                                backgroundColor:
+                                    Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                                elevation: 0,
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.only(
+                                  top: 20, // مسافة من الأعلى
+                                  left: 10,
+                                  right: 10,
+                                ),
+                              ),
                             );
-                          },
-                        );
-                      },
+                            BlocProvider.of<ReelsStateCubit>(
+                              context,
+                            ).getDataReels();
+                            Navigator.pop(context);
+                          } else if (state.error != null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: CustomSnakeBar(
+                                  text: state.error!,
+                                  isFailure: true,
+                                ),
+                                backgroundColor:
+                                    Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                                elevation: 0,
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.only(
+                                  top: 20, // مسافة من الأعلى
+                                  left: 10,
+                                  right: 10,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        builder: (context, state) {
+                          return CustomButtonWithIcon(
+                            type: 'add reels',
+                            iconButton: Icons.add,
+                            ontap: () {
+                              print(state.video!.path);
+                              // remouteDataReelsSource(dio: Dio()).addNewReel(
+                              //   state.video,
+                              //   title.text,
+                              //   descraption.text,
+                              // );
+                  if(form.currentState!.validate()){
+
+        if(state.video !=null){
+                   BlocProvider.of<ReelsStateCubit>(
+                                context,
+                              ).AddNewReel(
+                                state.video,
+                                title.text,
+                                descraption.text,
+                              );
+                            }else if(state.video ==null)
+                            {
+                               ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: CustomSnakeBar(
+                        isFailure: true,
+                        text: 'upload video , please',
+                      ),
+                      backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.only(
+                        top: 20, // مسافة من الأعلى
+                        left: 10,
+                        right: 10,
+                      ),
                     ),
-                  ],
+                  );
+                            }
+                  }
+                        
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

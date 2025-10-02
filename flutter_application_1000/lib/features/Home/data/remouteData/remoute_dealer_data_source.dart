@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -12,10 +13,10 @@ import 'package:flutter_application_1000/features/Home/presentation/widget/price
 import 'package:image_picker/image_picker.dart';
 
 class RemouteDealerDataSource {
-  var header = {
-    'Authorization':
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxMTIyMzE5LCJpYXQiOjE3NTg1MzAzMTksImp0aSI6IjVmMzljYzkyOTRjMTQ0YzdiNDk1OTMwODc4NWE0OTIwIiwidXNlcl9pZCI6IjMifQ.XIHFtjThZGYEbPDXRZZB41bw9q0Yrqd1uL-g723gg1A',
-  };
+  // var header = {
+  //   'Authorization':
+  //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxMTIyMzE5LCJpYXQiOjE3NTg1MzAzMTksImp0aSI6IjVmMzljYzkyOTRjMTQ0YzdiNDk1OTMwODc4NWE0OTIwIiwidXNlcl9pZCI6IjMifQ.XIHFtjThZGYEbPDXRZZB41bw9q0Yrqd1uL-g723gg1A',
+  // };
   final Dio dio;
 
   RemouteDealerDataSource({required this.dio});
@@ -23,7 +24,7 @@ class RemouteDealerDataSource {
     try {
       var url = Uri.parse('${AppUrl.BaseUrl}/products/');
       var response = await dio.get(
-        'http://10.0.2.2:8010/api/products/',
+        '${AppUrl.BaseUrl}/products/',
         // options: Options(headers: header),
       );
       List<productdata> responsedata = (response.data as List).map((item) {
@@ -104,7 +105,7 @@ class RemouteDealerDataSource {
       print(dio.options.headers);
       var response = await dio.deleteUri(
         url,
-        options: Options(headers: header),
+        // options: Options(headers: header),
       );
       if (response.statusCode == 204) {
         print('okey');
@@ -256,7 +257,7 @@ class RemouteDealerDataSource {
     XFile? image,
   ) async {
     // var url = '${AppUrl.BaseUrl}/products/$id/';
-    print(image!.path);
+    // print(image!.path);
     var data = FormData.fromMap({
       // 'main_image': [
       //   await MultipartFile.fromFile(
@@ -271,20 +272,34 @@ class RemouteDealerDataSource {
       'is_available': true,
       'category': Category,
     });
-    if (image != null) {
-      data.files.add(
-        MapEntry(
-          'main_image',
-          await MultipartFile.fromFile(image.path, filename: "profile.jpg"),
-        ),
-      );
+         if (image != null) {
+      if (image.path.startsWith('http')) {
+        // data.fields.add(MapEntry('video', video));
+      } else {
+        final file = File(image.path);
+        final multipartFile = await MultipartFile.fromFile(
+          file.path,
+          filename: file.uri.pathSegments.last,
+        );
+        data.files.add(MapEntry('main_image', multipartFile));
+      }
     }
+
+
+    // if (image != null) {
+    //   data.files.add(
+    //     MapEntry(
+    //       'main_image',
+    //       await MultipartFile.fromFile(image.path, filename: "profile.jpg"),
+    //     ),
+    //   );
+    // }
     print(data.fields);
     try {
       var response = await dio.patch(
         '${AppUrl.BaseUrl}/products/$id/',
         data: data,
-        options: Options(headers: header),
+        // options: Options(headers: header),
       );
       // dataresponseEditProduct editProduct = dataresponseEditProduct.fromMap(
       //   response.data,
@@ -303,7 +318,9 @@ class RemouteDealerDataSource {
   Future<Either<Failure, DataProfileModel>> getDataStoreProfile() async {
     var url = '${AppUrl.BaseUrl}/dealers/me/profile/';
     try {
-      var response = await dio.get(url, options: Options(headers: header));
+      var response = await dio.get(url,
+      //  options: Options(headers: header)
+       );
       print(response.data);
       DataProfileModel responseData = DataProfileModel.fromMap(response.data);
       return right(responseData);

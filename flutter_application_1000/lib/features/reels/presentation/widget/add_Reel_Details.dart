@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
 import 'package:flutter_application_1000/features/Home/presentation/page/add_new_car_page.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/home_Page1.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/custom_form_with_title.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -37,7 +38,7 @@ class addReelDetailsWidget extends StatelessWidget {
           Text('Reel Details', style: AppTextStyle.poppins416blueBlack),
           SizedBox(height: 13.h),
           CustomFormWithTitleWidget(
-            validation: (value) {},
+            validation: (value) =>Validator.notNullValidation(value),
             model: title,
             hintForm: 'enter title here',
             title: 'Title ',
@@ -45,7 +46,7 @@ class addReelDetailsWidget extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           CustomFormWithTitleWidget(
-            validation: (value) {},
+            validation:  (value) =>Validator.notNullValidation(value),
             model: descraption,
             hintForm: 'Write a catchy caption for your reel...',
             title: ' Caption',

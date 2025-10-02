@@ -27,10 +27,7 @@ class ReelCardWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          VideoPlayerWidget(
-            videoUrl:
-                'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
-          ),
+          VideoPlayerWidget(videoUrl: item.video),
           // Container(
           //   width: double.infinity,
           //   height: 632,

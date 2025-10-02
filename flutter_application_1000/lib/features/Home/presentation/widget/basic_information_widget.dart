@@ -18,6 +18,7 @@ class BasicInformtionWidget extends StatefulWidget {
     required this.getDataBrand,
     required this.year,
     required this.status,
+    //  required this.form,
   });
 
   final TextEditingController model;
@@ -27,7 +28,7 @@ class BasicInformtionWidget extends StatefulWidget {
   final Function(String value) getDataBrand;
   final Function(int value) year;
   final Function(String value) status;
-
+//  final GlobalKey<FormState> form;
   @override
   State<BasicInformtionWidget> createState() => _BasicInformtionWidgetState();
 }
@@ -93,7 +94,7 @@ class _BasicInformtionWidgetState extends State<BasicInformtionWidget> {
                   title: 'Model',
                   hintForm: 'e.g., Elantra, Civic, X5',
                 ),
-
+    
                 StatusCarSelectedWidget(
                   statusCar: statusCar,
                   sateus: (value) {
@@ -101,10 +102,10 @@ class _BasicInformtionWidgetState extends State<BasicInformtionWidget> {
                     print(value);
                   },
                 ),
-
-                CustomFormWithTitleWidget(
+    
+                CustomFormWithTitleWidget(isNum: true,
                   validation: (value) {
-                    Validator.notNullValidation(value);
+                    Validator.notNullValidationValue(value);
                   },
                   model: widget.price,
                   title: 'price(USD)',
@@ -114,7 +115,7 @@ class _BasicInformtionWidgetState extends State<BasicInformtionWidget> {
                 Row(
                   children: [
                     Expanded(
-                      child: CustomFormWithTitleWidget(
+                      child: CustomFormWithTitleWidget(isNum: true,
                         validation: (value) {
                           Validator.notNullValidation(value);
                         },

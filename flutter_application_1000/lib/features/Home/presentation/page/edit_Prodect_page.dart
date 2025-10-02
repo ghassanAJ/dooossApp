@@ -208,39 +208,39 @@ class _EditProdectPageState extends State<EditProdectPage> {
                                 ),
                               ),
                               SizedBox(height: 24.h),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.business_outlined,
-                                    color: AppColors.silverDark,
-                                  ),
-                                  SizedBox(width: 8.w),
-                                  Text(
-                                    'Brand',
-                                    style: AppTextStyle.poppins514BlueDark,
-                                  ),
-                                  // Text('*', style: TextStyle(color: Colors.redAccent)),
-                                ],
-                              ),
-                              SizedBox(height: 17.h),
-                              SizedBox(
-                                width: 324.w,
-                                // height: 55.h,
-                                child: DropdownButtonFormField(
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: Colors.black,
-                                  ),
-                                  hint: Text(
-                                    ' Toyota',
-                                    style: AppTextStyle.poppinsw416black,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  items: [],
-                                  onChanged: (value) {},
-                                ),
-                              ),
-                              SizedBox(height: 24.h),
+                              // Row(
+                              //   children: [
+                              //     Icon(
+                              //       Icons.business_outlined,
+                              //       color: AppColors.silverDark,
+                              //     ),
+                              //     SizedBox(width: 8.w),
+                              //     Text(
+                              //       'Brand',
+                              //       style: AppTextStyle.poppins514BlueDark,
+                              //     ),
+                              //     // Text('*', style: TextStyle(color: Colors.redAccent)),
+                              //   ],
+                              // ),
+                              // SizedBox(height: 17.h),
+                              // SizedBox(
+                              //   width: 324.w,
+                              //   // height: 55.h,
+                              //   child: DropdownButtonFormField(
+                              //     icon: Icon(
+                              //       Icons.keyboard_arrow_down,
+                              //       color: Colors.black,
+                              //     ),
+                              //     hint: Text(
+                              //       ' Toyota',
+                              //       style: AppTextStyle.poppinsw416black,
+                              //       textAlign: TextAlign.center,
+                              //     ),
+                              //     items: [],
+                              //     onChanged: (value) {},
+                              //   ),
+                              // ),
+                              // SizedBox(height: 24.h),
                               Row(
                                 children: [
                                   Expanded(
@@ -266,7 +266,7 @@ class _EditProdectPageState extends State<EditProdectPage> {
                                         SizedBox(
                                           width: 137.w,
                                           // height: 55.h,
-                                          child: TextFormField(
+                                          child: TextFormField(keyboardType: TextInputType.numberWithOptions(),
                                             controller: widget.price,
                                             decoration: InputDecoration(
                                               hintText: widget.price.text,
@@ -300,7 +300,7 @@ class _EditProdectPageState extends State<EditProdectPage> {
                                         SizedBox(
                                           width: 137.w,
                                           // height: 55.h,
-                                          child: TextFormField(
+                                          child: TextFormField(keyboardType: TextInputType.numberWithOptions(),
                                             controller: widget.discount,
                                             decoration: InputDecoration(
                                               hintText: widget.discount.text,
@@ -383,8 +383,8 @@ class _EditProdectPageState extends State<EditProdectPage> {
                                   ),
                                   items: [
                                     DropdownMenuItem(
-                                      child: Text('ghass'),
-                                      value: 'ghassan',
+                                      child: Text('lighting'),
+                                      value: 'lighting',
                                     ),
                                     DropdownMenuItem(
                                       child: Text('screens'),
@@ -417,14 +417,14 @@ class _EditProdectPageState extends State<EditProdectPage> {
                         ontap: () {
                           // print(widget.productName);
                           // print(Category);
-                          print(widget.item.id);
-                          print(widget.productName.text);
-                          print(widget.price.text);
-                          print(widget.discount.text);
-                          print(widget.item.isAvailable);
-                          print(Category);
-
-                          BlocProvider.of<HomePageCubit>(context).EditProduct(
+                          // print(widget.item.id);
+                          // print(widget.productName.text);
+                          // print(widget.price.text);
+                          // print(widget.discount.text);
+                          // print(widget.item.isAvailable);
+                          // print(Category);
+                              // if(imageData!=null){
+                     BlocProvider.of<HomePageCubit>(context).EditProduct(
                             widget.item.id,
                             widget.productName.text,
                             widget.price.text,
@@ -433,7 +433,11 @@ class _EditProdectPageState extends State<EditProdectPage> {
                             Category,
                             imageData,
                           );
-                        },
+                              }
+
+
+                         
+                        // },
                       ),
 
                       // Icon(Icons.line)
@@ -605,7 +609,7 @@ class CustomSnakeBar extends StatelessWidget {
                     size: 20.r,
                   ),
             SizedBox(width: 8.w),
-            Text(text, style: AppTextStyle.poppins416white),
+            Text(text, style: AppTextStyle.poppins416white,overflow: TextOverflow.ellipsis,),
           ],
         ),
       ),

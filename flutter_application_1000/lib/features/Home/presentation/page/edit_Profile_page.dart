@@ -18,6 +18,7 @@ import 'package:flutter_application_1000/features/Home/presentation/widget/botto
 import 'package:flutter_application_1000/features/Home/presentation/widget/contectI_info_widget.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/form_edit_profile_widget.dart';
 import 'package:flutter_application_1000/features/Home/presentation/widget/upload_logo_store_widget.dart';
+import 'package:flutter_application_1000/features/reels/presentation/widget/Custom_app_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -67,7 +68,9 @@ class _EditStoreProfileState extends State<EditStoreProfile> {
   @override
   Widget build(BuildContext context) {
     late bool isAvaiable = true;
-    return Scaffold(
+    return Scaffold(appBar: CustomAppBar(title: 'Edit Store', subtitle: '', ontap: (){
+                  BlocProvider.of<HomePageCubit>(context).getDataProfile();
+    }),
       backgroundColor: AppColors.background,
       // appBar: AppBar(),
       // bottomNavigationBar: BottonNavigationOfEditStore(isAvaialble: isAvaiable),
@@ -87,6 +90,8 @@ class _EditStoreProfileState extends State<EditStoreProfile> {
                 ),
               ),
             );
+            BlocProvider.of<HomePageCubit>(context).getDataProfile();
+            Navigator.pop(context);
           } else if (state.error != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

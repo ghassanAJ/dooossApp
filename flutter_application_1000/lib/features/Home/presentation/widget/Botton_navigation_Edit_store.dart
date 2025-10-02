@@ -233,7 +233,7 @@ class ImageProduct extends StatelessWidget {
     required this.item,
   });
 
-  final String? item; // لو string url
+  final dynamic? item; // لو string url
 
   @override
   Widget build(BuildContext context) {
@@ -245,12 +245,12 @@ class ImageProduct extends StatelessWidget {
         child: item == null || item!.isEmpty
             ? Container(color: Colors.grey[300]) // بدون صورة
             : Image.network(
-                'http://10.0.2.2:8010$item',
+                '$item',
                 width: 60,
                 height: 60,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => 
-                    Container(color: Colors.red[200]), // لو صار خطأ بالتحميل
+                    Container(color: AppColors.borderColor), // لو صار خطأ بالتحميل
               ),
       ),
     );
