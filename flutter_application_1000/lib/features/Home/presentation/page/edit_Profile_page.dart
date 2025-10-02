@@ -45,6 +45,7 @@ class EditStoreProfile extends StatefulWidget {
   final String openTime;
   final String lat;
   final String log;
+ 
   @override
   State<EditStoreProfile> createState() => _EditStoreProfileState();
 }
@@ -64,13 +65,19 @@ class _EditStoreProfileState extends State<EditStoreProfile> {
     lonValue = widget.log;
     super.initState();
   }
-
+GlobalKey<FormState> form = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     late bool isAvaiable = true;
-    return Scaffold(appBar: CustomAppBar(title: 'Edit Store', subtitle: '', ontap: (){
-                  BlocProvider.of<HomePageCubit>(context).getDataProfile();
-    }),
+    return Scaffold(
+      appBar: CustomAppBar(
+        backgroundColor: Color(0xffffffff),
+        title: 'Edit Store',
+        subtitle: '',
+        ontap: () {
+          BlocProvider.of<HomePageCubit>(context).getDataProfile();
+        },
+      ),
       backgroundColor: AppColors.background,
       // appBar: AppBar(),
       // bottomNavigationBar: BottonNavigationOfEditStore(isAvaialble: isAvaiable),
@@ -115,68 +122,80 @@ class _EditStoreProfileState extends State<EditStoreProfile> {
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 24.h, horizontal: 16.w),
             child: Center(
-              child: Column(
-                children: [
-                  formEditProfileWidget(
-                    storeName: widget.storeName,
-                    storeDescription: widget.storeDescription,
-                  ),
-                  // AddStoreLogoWidget(),
-                  ContactInfoWidget(phone: widget.phone),
-                  locationSelectWidget(
-                    lat: (value) {
-                      latValue = value;
-                    },
-                    lon: (value) {
-                      lonValue = value;
-                    },
-                    location: widget.location,
-                    linkGoogle: widget.email,
-                  ),
-                  // storeTypeSelectWidget(),
-                  changeStatusStoreWidget(
-                    openungTime: (String value) {
-                      start = value;
-                    },
-                    closeTime: (String value) {
-                      close = value;
-                      print(value);
-                    },
-                    day: (daysSelected) {
-                      print(daysSelected);
-                      days = daysSelected;
-                    },
-                  ),
+              child: Form(
+                key: form,
+                child: Column(
+                  children: [
+                    formEditProfileWidget(
+                      storeName: widget.storeName,
+                      storeDescription: widget.storeDescription,
+                    ),
+                    // AddStoreLogoWidget(),
+                    ContactInfoWidget(phone: widget.phone,email: widget.email,),
+                    locationSelectWidget(
+                      lat: (value) {
+                        latValue = value;
+                      },
+                      lon: (value) {
+                        lonValue = value;
+                      },
+                      location: widget.location,
+                      linkGoogle: widget.email,
+                    ),
+                    // storeTypeSelectWidget(),
+                    changeStatusStoreWidget(
+                      openungTime: (String value) {
+                        start = value;
+                      },
+                      closeTime: (String value) {
+                        close = value;
+                        print(value);
+                      },
+                      day: (daysSelected) {
+                        print(daysSelected);
+                        days = daysSelected;
+                      },
+                    ),
 
-                  // selectStoreStatus(
-                  //   toggleStatus: (value) {
-                  //     // print(value);
-                  //     isAvaiable = value;
-                  //     print(isAvaiable);
-                  //   },
-                  // ),
-                  BottonNavigationOfEditStore(
-                    onTap: () {
-                      BlocProvider.of<HomePageCubit>(context).EditDataProfile(
-                        widget.storeName.text,
-                        widget.storeDescription.text,
-                        widget.phone.text,
-                        close.toString(),
-                        start.toString(),
-                        latValue,
-                        lonValue,
-                        days,
-                      );
-                    },
-                    isAvaialble: isAvaiable,
-                    name: widget.storeName.text,
-                    descraption: widget.storeDescription.text,
-                    phone: widget.phone.text,
-                    email: widget.email.text,
-                    location: widget.location.text,
-                    linkGoogle: widget.email.text,
-                  ),
-                ],
+                    // selectStoreStatus(
+                    //   toggleStatus: (value) {
+                    //     // print(value);
+                    //     isAvaiable = value;
+                    //     print(isAvaiable);
+                    //   },
+                    // ),
+                    BottonNavigationOfEditStore(
+                      reset: () {
+                        widget.storeName.text = '';
+                        widget.storeDescription.text = '';
+                        widget.phone.text = '';
+                        days = [];
+                      },
+                      onTap: () {
+                            if (form.currentState!.validate()) {
+                               BlocProvider.of<HomePageCubit>(context).EditDataProfile(
+                          widget.storeName.text,
+                          widget.storeDescription.text,
+                          widget.phone.text,
+                          close.toString(),
+                          start.toString(),
+                          latValue,
+                          lonValue,
+                          days,
+                        );
+                            }
+                       
+                      },
+                      isAvaialble: isAvaiable,
+                      name: widget.storeName.text,
+                      descraption: widget.storeDescription.text,
+                      phone: widget.phone.text,
+                      email: widget.email.text,
+                      location: widget.location.text,
+                      linkGoogle: widget.email.text,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

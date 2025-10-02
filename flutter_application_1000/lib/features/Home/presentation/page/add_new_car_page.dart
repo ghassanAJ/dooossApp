@@ -120,136 +120,138 @@ class _AddNewCarPageState extends State<AddNewCarPage> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(17.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                BasicInformtionWidget(
-                  getDataBrand: (value) {
-                    widget.brand = value!;
-                    print(value);
-                  },
-                  status: (value) {
-                    widget.status = value;
-                    print(value);
-                  },
-                  model: widget.model,
-                  price: widget.price,
-                  mileage: widget.mileage,
-                  engineSize: widget.engineSize,
-                  year: (value) {
-                    widget.year = value;
-                    print(value);
-                  },
-                ),
-                SizedBox(height: 24.h),
-                SpecificationsWidget(
-                  Transmission: (value) {
-                    widget.transmission = value;
-                  },
-                  Drivetrain: (value) {
-                    widget.drivetrain = value;
-                  },
-                  Door: (value) {
-                    widget.Doors = value;
-                  },
-                  seats: (value) {
-                    widget.seats = value;
-                  },
-                  fuelType: (value) {
-                    widget.typeFuel = value;
-                    print(value);
-                  },
-                ),
-                SizedBox(height: 24.h),
-                AppearanceAndColorsWidget(
-                  color: widget.color,
-                  lat: (value) {
-                    widget.lat = value;
-                  },
-                  lon: (value) {
-                    widget.lon = value;
-                  },
-                ),
-                // SizedBox(height: 24.h),
-        
-                // featuresAndOptionsWidget(),
-                imageAndMediaOfAddCar(widget: widget),
-                SizedBox(height: 20.h),
-        
-                CustomButtonWithIcon(
-                  type: 'add car',
-                  iconButton: Icons.add,
-                  ontap: () {
-                    // print(widget.brand);
-                    // // RemouteDealerDataSource().AddCars();
-                    // print(widget.model.text);
-                    // print(widget.price.text);
-                    // print(widget.Doors);
-                    // print(widget.drivetrain);
-                    // print(widget.typeFuel);
-                    // print(widget.transmission);
-                    // print(widget.image.value!.path);
-                    print(widget.status);
-                    // RemouteDealerDataSource().AddCars(
-                    //   widget.brand,
-                    //   (widget.year).toString(),
-                    //   widget.model.text,
-                    //   widget.price.text,
-                    //   widget.mileage.text,
-                    //   widget.engineSize.text,
-                    //   widget.typeFuel,
-                    //   widget.transmission,
-                    //   widget.drivetrain,
-                    //   widget.Doors,
-                    //   widget.seats,
-                    //   widget.image.value!,
-                    // );
-                    
-                      if (formKey.currentState!.validate()){
-                             if(widget.image!=null){
-                   BlocProvider.of<HomePageCubit>(context).AddNewCar(
-                        widget.brand,
-                        widget.year!,
-                        widget.model.text,
-                        widget.price.text,
-                        widget.mileage.text,
-                        widget.engineSize.text,
-                        widget.typeFuel,
-                        widget.transmission,
-                        widget.drivetrain,
-                        widget.Doors,
-                        widget.seats,
-                        widget.image.value!,
-                        widget.status,
-                        widget.lat,
-                        widget.lon,
-                      );
-                             }else{
-         ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: CustomSnakeBar(
-                    isFailure: true,
-                    text: 'add image please',
+            child: Form(key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  BasicInformtionWidget(
+                    getDataBrand: (value) {
+                      widget.brand = value!;
+                      print(value);
+                    },
+                    status: (value) {
+                      widget.status = value;
+                      print(value);
+                    },
+                    model: widget.model,
+                    price: widget.price,
+                    mileage: widget.mileage,
+                    engineSize: widget.engineSize,
+                    year: (value) {
+                      widget.year = value;
+                      print(value);
+                    },
                   ),
-                  backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
-                  elevation: 0,
-                  behavior: SnackBarBehavior.floating,
-                  margin: EdgeInsets.only(
-                    top: 20, // مسافة من الأعلى
-                    left: 10,
-                    right: 10,
+                  SizedBox(height: 24.h),
+                  SpecificationsWidget(
+                    Transmission: (value) {
+                      widget.transmission = value;
+                    },
+                    Drivetrain: (value) {
+                      widget.drivetrain = value;
+                    },
+                    Door: (value) {
+                      widget.Doors = value;
+                    },
+                    seats: (value) {
+                      widget.seats = value;
+                    },
+                    fuelType: (value) {
+                      widget.typeFuel = value;
+                      print(value);
+                    },
                   ),
-                ),
-              );
-        
-                             }
-                    
-        
-                    }   
-                   
-                  },
-                ),
-              ],
+                  SizedBox(height: 24.h),
+                  AppearanceAndColorsWidget(
+                    color: widget.color,
+                    lat: (value) {
+                      widget.lat = value;
+                    },
+                    lon: (value) {
+                      widget.lon = value;
+                    },
+                  ),
+                  // SizedBox(height: 24.h),
+                      
+                  // featuresAndOptionsWidget(),
+                  imageAndMediaOfAddCar(widget: widget),
+                  SizedBox(height: 20.h),
+                      
+                  CustomButtonWithIcon(
+                    type: 'add car',
+                    iconButton: Icons.add,
+                    ontap: () {
+                      // print(widget.brand);
+                      // // RemouteDealerDataSource().AddCars();
+                      // print(widget.model.text);
+                      // print(widget.price.text);
+                      // print(widget.Doors);
+                      // print(widget.drivetrain);
+                      // print(widget.typeFuel);
+                      // print(widget.transmission);
+                      // print(widget.image.value!.path);
+                      print(widget.status);
+                      // RemouteDealerDataSource().AddCars(
+                      //   widget.brand,
+                      //   (widget.year).toString(),
+                      //   widget.model.text,
+                      //   widget.price.text,
+                      //   widget.mileage.text,
+                      //   widget.engineSize.text,
+                      //   widget.typeFuel,
+                      //   widget.transmission,
+                      //   widget.drivetrain,
+                      //   widget.Doors,
+                      //   widget.seats,
+                      //   widget.image.value!,
+                      // );
+                      
+                        if (formKey.currentState!.validate()){
+                               if(widget.image!=null){
+                     BlocProvider.of<HomePageCubit>(context).AddNewCar(
+                          widget.brand,
+                          widget.year!,
+                          widget.model.text,
+                          widget.price.text,
+                          widget.mileage.text,
+                          widget.engineSize.text,
+                          widget.typeFuel,
+                          widget.transmission,
+                          widget.drivetrain,
+                          widget.Doors,
+                          widget.seats,
+                          widget.image.value!,
+                          widget.status,
+                          widget.lat,
+                          widget.lon,
+                        );
+                               }else{
+                       ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: CustomSnakeBar(
+                      isFailure: true,
+                      text: 'add image please',
+                    ),
+                    backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
+                    elevation: 0,
+                    behavior: SnackBarBehavior.floating,
+                    margin: EdgeInsets.only(
+                      top: 20, // مسافة من الأعلى
+                      left: 10,
+                      right: 10,
+                    ),
+                  ),
+                );
+                      
+                               }
+                      
+                      
+                      }   
+                     
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

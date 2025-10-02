@@ -72,12 +72,15 @@ class MyApp extends StatelessWidget {
           ),
           home: BlocProvider(
             create: (context) => AuthCubit(getIt<AuthRemouteDataSource>()),
-            child: MyReelsPage(),
+            child: NavigatorPage(),
           ),
         ),
       ),
     );
   }
+}
+
+class HomePTwoScreensPageViewage1 {
 }
 
 class MyHomePage extends StatefulWidget {

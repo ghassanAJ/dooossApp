@@ -54,9 +54,7 @@ class CustomFormWithTitleWidget extends StatelessWidget {
           width: wid == null ? 324.w : wid,
           // height: 50.h,
           child: TextFormField(keyboardType: isNum==true? TextInputType.numberWithOptions():null,
-            validator: (value) {
-              validation(value);
-            },
+            validator: (value) => validation(value),
             maxLines: lineNum,
             controller: model,
             decoration: InputDecoration(hintText: hintForm),

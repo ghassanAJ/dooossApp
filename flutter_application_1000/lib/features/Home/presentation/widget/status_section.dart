@@ -10,11 +10,16 @@ import 'package:flutter_svg/svg.dart';
 
 class StatusSection extends StatelessWidget {
   const StatusSection({super.key});
+  bool isWithinRange(DateTime start, DateTime end) {
+  DateTime now = DateTime.now(); // الوقت الحالي
+  return now.isAfter(start) && now.isBefore(end);
+}
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomePageCubit, HomepageState>(
       builder: (context, state) {
+        
         return Container(
           width: 358.w,
           height: 100.h,
@@ -74,15 +79,15 @@ class StatusSection extends StatelessWidget {
                             alignment: Alignment.center,
                             height: 28.h,
                             decoration: BoxDecoration(
-                              color: AppColors.lightGreen,
+                              color:state.dataStore.isStoreOpen? AppColors.lightGreen:AppColors.redLight,
                               borderRadius: BorderRadius.circular(100),
                             ),
-                            child: Text(
-                              'Open',
+                            child: Text(state.dataStore.isStoreOpen?
+                              'Open':'Close',
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12,
-                                color: Color(0xff16A34A),
+                                color:state.dataStore.isStoreOpen? Color(0xff16A34A):AppColors.red,
                               ),
                             ),
                           ),

@@ -1,48 +1,148 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-// void main() {
-//   runApp(const MyApp());
+// // void main() {
+// //   runApp(const MyApp());
+// // }
+
+// // class MyApp extends StatelessWidget {
+// //   const MyApp({super.key});
+
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return MaterialApp(
+// //       debugShowCheckedModeBanner: false,
+// //       home: const HomeScreen(),
+// //     );
+// //   }
+// // }
+
+// class HomeScreen extends StatefulWidget {
+//   const HomeScreen({super.key});
+
+//   @override
+//   State<HomeScreen> createState() => _HomeScreenState();
 // }
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
+// class _HomeScreenState extends State<HomeScreen> {
+//   final PageController _pageController = PageController();
+//   int _currentIndex = 0;
+
+//   final List<Widget> _pages = const [
+//     Center(child: Text('📄 Page 1', style: TextStyle(fontSize: 28))),
+//     Center(child: Text('📄 Page 2', style: TextStyle(fontSize: 28))),
+//     Center(child: Text('📄 Page 3', style: TextStyle(fontSize: 28))),
+//   ];
+
+//   @override
+//   void dispose() {
+//     // هنا ما نستخدم context في dispose حتى نتجنب الخطأ
+//     _pageController.dispose();
+//     super.dispose();
+//   }
+
+//   void _onItemTapped(int index) {
+//     setState(() => _currentIndex = index);
+//     _pageController.animateToPage(
+//       index,
+//       duration: const Duration(milliseconds: 300),
+//       curve: Curves.easeInOut,
+//     );
+//   }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: const HomeScreen(),
+//     return Scaffold(
+//       body: PageView(
+//         controller: _pageController,
+//         children: _pages,
+//         onPageChanged: (index) {
+//           setState(() => _currentIndex = index);
+//         },
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         currentIndex: _currentIndex,
+//         onTap: _onItemTapped,
+//         items: const [
+//           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+//           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+//           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+//         ],
+//       ),
 //     );
 //   }
 // }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+
+// import 'package:flutter/material.dart';
+
+// class TwoScreensPageView extends StatefulWidget {
+//   const TwoScreensPageView({super.key});
+
+//   @override
+//   State<TwoScreensPageView> createState() => _TwoScreensPageViewState();
+// }
+
+// class _TwoScreensPageViewState extends State<TwoScreensPageView> {
+//   final PageController _controller = PageController();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: PageView(
+//         controller: _controller,
+//         children: [
+//           // الشاشة الأولى
+//           Container(
+//             color: Colors.blue,
+//             child: Center(
+//               child: Text(
+//                 "Screen 1",
+//                 style: TextStyle(fontSize: 28, color: Colors.white),
+//               ),
+//             ),
+//           ),
+
+//           // الشاشة الثانية
+//           Container(
+//             color: Colors.green,
+//             child: Center(
+//               child: Text(
+//                 "Screen 2",
+//                 style: TextStyle(fontSize: 28, color: Colors.white),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1000/Core/style/app_Colors.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/add_new_car_page.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/home_Page1.dart';
+import 'package:flutter_application_1000/features/reels/presentation/page/my_reels_page.dart';
+import 'package:flutter_svg/svg.dart';
+
+class NavigatorPage extends StatefulWidget {
+  const NavigatorPage({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<NavigatorPage> createState() => _NavigatorPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  final PageController _pageController = PageController();
+class _NavigatorPageState extends State<NavigatorPage> {
+  final PageController _controller = PageController();
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [
-    Center(child: Text('📄 Page 1', style: TextStyle(fontSize: 28))),
-    Center(child: Text('📄 Page 2', style: TextStyle(fontSize: 28))),
-    Center(child: Text('📄 Page 3', style: TextStyle(fontSize: 28))),
-  ];
-
-  @override
-  void dispose() {
-    // هنا ما نستخدم context في dispose حتى نتجنب الخطأ
-    _pageController.dispose();
-    super.dispose();
+  void _onPageChanged(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
-  void _onItemTapped(int index) {
-    setState(() => _currentIndex = index);
-    _pageController.animateToPage(
+  void _onNavBarTap(int index) {
+    _controller.animateToPage(
       index,
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -53,19 +153,51 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        controller: _pageController,
-        children: _pages,
-        onPageChanged: (index) {
-          setState(() => _currentIndex = index);
-        },
+        controller: _controller,
+        onPageChanged: _onPageChanged,
+        children: [
+                   MyReelsPage(),
+          HomePage1(),
+ 
+
+          // Container(
+          //   color: Colors.blue,
+          //   child: const Center(
+          //     child: Text(
+          //       "Screen 1",
+          //       style: TextStyle(fontSize: 28, color: Colors.white),
+          //     ),
+          //   ),
+          // ),
+          // Container(
+          //   color: Colors.green,
+          //   child: const Center(
+          //     child: Text(
+          //       "Screen 2",
+          //       style: TextStyle(fontSize: 28, color: Colors.white),
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(backgroundColor: Color(0xffffffff),
         currentIndex: _currentIndex,
-        onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        onTap: _onNavBarTap,
+          showSelectedLabels: false,   // إخفاء النص عند الاختيار
+  showUnselectedLabels: false,
+          selectedItemColor: AppColors.primary, // اللون عند الضغط أو الاختيار
+  unselectedItemColor: Colors.grey, 
+        items: [
+          BottomNavigationBarItem(backgroundColor: AppColors.primary,
+            icon: SvgPicture.asset('assets/icons/reels.svg',   color: _currentIndex == 0 ? AppColors.primary : Colors.grey,
+             ),
+            label: "",
+            
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled),
+            label: "Screen 2",
+          ),
         ],
       ),
     );

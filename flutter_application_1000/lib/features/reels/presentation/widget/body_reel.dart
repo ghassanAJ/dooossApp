@@ -10,6 +10,7 @@ import 'package:flutter_application_1000/features/reels/presentation/manager/ree
 import 'package:flutter_application_1000/features/reels/presentation/page/edit_reels_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class bodyReel extends StatelessWidget {
   const bodyReel({super.key, required this.item});
@@ -83,11 +84,12 @@ class bodyReel extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(
-                        Icons.remove_red_eye,
-                        size: 16,
-                        color: Color(0xff6B7280),
-                      ),
+                      SvgPicture.asset('assets/icons/eye.svg',color: Color(0xff6B7280)),
+                      // Icon(
+                      //   Icons.remove_red_eye,
+                      //   size: 16,
+                      //   color: Color(0xff6B7280),
+                      // ),
                       SizedBox(width: 4.w),
                       Text(
                         ' ${_formatNumber(item.viewsCount)}',

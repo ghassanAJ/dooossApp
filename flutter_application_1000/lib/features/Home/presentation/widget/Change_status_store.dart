@@ -47,7 +47,7 @@ class changeStatusStoreWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12.h),
-          Row(
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('working Day', style: AppTextStyle.poppins414BlueDark),
               GestureDetector(
@@ -103,7 +103,7 @@ class changeStatusStoreWidget extends StatelessWidget {
                   ),
                   child: Text(
                     'Select Day working',
-                    style: AppTextStyle.poppins514BlueDark,
+                    style: AppTextStyle.poppins414BD,
                   ),
                 ),
               ),

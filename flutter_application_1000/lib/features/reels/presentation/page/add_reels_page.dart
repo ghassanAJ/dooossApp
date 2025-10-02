@@ -132,7 +132,7 @@ class AddReelsPage extends StatelessWidget {
                               // );
                   if(form.currentState!.validate()){
 
-        if(state.video !=null){
+             if(state.video !=null){
                    BlocProvider.of<ReelsStateCubit>(
                                 context,
                               ).AddNewReel(
@@ -142,8 +142,8 @@ class AddReelsPage extends StatelessWidget {
                               );
                             }else if(state.video ==null)
                             {
-                               ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                           return      ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
                       content: CustomSnakeBar(
                         isFailure: true,
                         text: 'upload video , please',

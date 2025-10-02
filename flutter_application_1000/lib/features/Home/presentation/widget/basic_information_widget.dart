@@ -88,7 +88,7 @@ class _BasicInformtionWidgetState extends State<BasicInformtionWidget> {
                 SizedBox(height: 16.w),
                 CustomFormWithTitleWidget(
                   validation: (value) {
-                    Validator.notNullValidation(value);
+                 return   Validator.notNullValidation(value);
                   },
                   model: widget.model,
                   title: 'Model',
@@ -105,7 +105,7 @@ class _BasicInformtionWidgetState extends State<BasicInformtionWidget> {
     
                 CustomFormWithTitleWidget(isNum: true,
                   validation: (value) {
-                    Validator.notNullValidationValue(value);
+                  return  Validator.notNullValidationValue(value);
                   },
                   model: widget.price,
                   title: 'price(USD)',
@@ -117,7 +117,7 @@ class _BasicInformtionWidgetState extends State<BasicInformtionWidget> {
                     Expanded(
                       child: CustomFormWithTitleWidget(isNum: true,
                         validation: (value) {
-                          Validator.notNullValidation(value);
+                      return    Validator.notNullValidation(value);
                         },
                         model: widget.mileage,
                         title: 'Mileage (km)',
@@ -128,7 +128,7 @@ class _BasicInformtionWidgetState extends State<BasicInformtionWidget> {
                     Expanded(
                       child: CustomFormWithTitleWidget(
                         validation: (value) {
-                          Validator.notNullValidation(value);
+                      return    Validator.notNullValidation(value);
                         },
                         model: widget.engineSize,
                         title: 'Engine Size',

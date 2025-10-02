@@ -134,7 +134,6 @@ class HomePageCubit extends Cubit<HomepageState> {
     result.fold((failure) {
       print(failure.massageError);
       allProduct[index] = CurrentProduct;
-
       emit(state.copyWith(allProduct: allProduct));
     }, (data) {});
   }

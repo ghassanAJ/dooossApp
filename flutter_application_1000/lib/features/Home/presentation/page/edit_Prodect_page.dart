@@ -118,7 +118,7 @@ class _EditProdectPageState extends State<EditProdectPage> {
                           SizedBox(width: 12.w),
                           // Icon(Icons.oil_barrel, color: AppColors.primary),
                           SvgPicture.asset('assets/icons/product.svg',width: 18.w,),
-                          Text(
+                          Text(overflow: TextOverflow.ellipsis,
                             '  ${widget.item.name}',
                             style: AppTextStyle.poppins616blueDark,
                           ),

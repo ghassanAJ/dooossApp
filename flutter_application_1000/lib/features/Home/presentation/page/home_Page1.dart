@@ -68,12 +68,12 @@ class HomePage1 extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Row(
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                BlocProvider.of<AuthCubit>(context).SignIn();
-                              },
-                              icon: Icon(Icons.notifications, size: 20),
-                            ),
+                            // IconButton(
+                            //   onPressed: () {
+                            //     BlocProvider.of<AuthCubit>(context).SignIn();
+                            //   },
+                            //   icon: Icon(Icons.notifications, size: 20),
+                            // ),
                             SizedBox(width: 10.w),
                             GestureDetector(
                               onTap: () {

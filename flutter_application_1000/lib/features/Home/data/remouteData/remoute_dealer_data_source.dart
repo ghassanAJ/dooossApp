@@ -100,7 +100,6 @@ class RemouteDealerDataSource {
 
   Future<Either<String, void>> deleteProduct(int id) async {
     try {
-    
       var url = Uri.parse('${AppUrl.BaseUrl}/products/$id/');
       print(dio.options.headers);
       var response = await dio.deleteUri(
@@ -123,13 +122,20 @@ class RemouteDealerDataSource {
     int id,
     bool currentValue,
   ) async {
+    // dio.options.headers = {
+    //   'Authorization':
+    //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxMTIyMzE5LCJpYXQiOjE3NTg1MzAzMTksImp0aSI6IjVmMzljYzkyOTRjMTQ0YzdiNDk1OTMwODc4NWE0OTIwIiwidXNlcl9pZCI6IjMifQ.XIHFtjThZGYEbPDXRZZB41bw9q0Yrqd1uL-g723gg1A',
+    // };
     print(dio.options.headers);
+    var headerAvaailable = dio.options.headers;
+
+   headerAvaailable.remove('Content-Type'); ///////////////////  تعديل
     var url = '${AppUrl.BaseUrl}/dealers/products/$id/availability/';
     var data = {"available": currentValue};
     try {
       var response = await dio.patch(
         url,
-        // options: Options(headers: header),
+        options: Options(headers: headerAvaailable),
         data: data,
       );
       if (response.statusCode == 200) {
@@ -220,12 +226,16 @@ class RemouteDealerDataSource {
       'is_available': 'true',
       'doors_count': 4, //int//int
       'seats_count': 5, //int
-      'status': 'new',
+      'status': 'new', //تعديل
       'license_status': 'licensed',
       'lat': 25.2048, //int
       'lon': 55.2708, //int
       'is_main': 'true',
     });
+    //    dio.options.headers.addAll({
+    //   'Content-Type': 'multipart/form-data', ///// تعديل
+    // });
+
     print('*******${dio.options.headers}*******');
     print(Model);
     print(year);
@@ -272,7 +282,7 @@ class RemouteDealerDataSource {
       'is_available': true,
       'category': Category,
     });
-         if (image != null) {
+    if (image != null) {
       if (image.path.startsWith('http')) {
         // data.fields.add(MapEntry('video', video));
       } else {
@@ -284,7 +294,6 @@ class RemouteDealerDataSource {
         data.files.add(MapEntry('main_image', multipartFile));
       }
     }
-
 
     // if (image != null) {
     //   data.files.add(
@@ -318,9 +327,10 @@ class RemouteDealerDataSource {
   Future<Either<Failure, DataProfileModel>> getDataStoreProfile() async {
     var url = '${AppUrl.BaseUrl}/dealers/me/profile/';
     try {
-      var response = await dio.get(url,
-      //  options: Options(headers: header)
-       );
+      var response = await dio.get(
+        url,
+        //  options: Options(headers: header)
+      );
       print(response.data);
       DataProfileModel responseData = DataProfileModel.fromMap(response.data);
       return right(responseData);

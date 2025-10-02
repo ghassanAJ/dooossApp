@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1000/Core/style/app_Colors.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/home_Page1.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -52,8 +53,8 @@ class formEditProfileWidget extends StatelessWidget {
               SizedBox(height: 17.h),
               SizedBox(
                 width: 324.w,
-                height: 50.h,
-                child: TextFormField(
+                height: 70.h,
+                child: TextFormField(validator: (value) => Validator.notNullValidation(value),
                   controller: storeName,
                   decoration: InputDecoration(
                     hintText: 'El Sharkawy Auto',
@@ -99,6 +100,7 @@ class formEditProfileWidget extends StatelessWidget {
         width: 324.w,
         // height: 50.h,
         child: TextFormField(maxLines: 4,
+        validator: (value) => Validator.notNullValidation(value),
           controller: storeDescription,
           decoration: InputDecoration(
             hintText: 'Premium car dealership specializing in\nluxury vehicles and automotive\naccessories. We offer new and used\ncars with comprehensive warranty and',

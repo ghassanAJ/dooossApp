@@ -27,7 +27,7 @@ class ReelCardWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          VideoPlayerWidget(videoUrl: item.video),
+          VideoPlayerWidget(videoUrl: item.video??''),
           // Container(
           //   width: double.infinity,
           //   height: 632,
