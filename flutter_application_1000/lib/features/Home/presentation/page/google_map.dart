@@ -277,7 +277,7 @@ class _MapScreenState extends State<MapScreen> {
   final MapController mapController = MapController();
 
   // موقع الـ Marker الحالي (يبدأ بموقع افتراضي)
-  LatLng markerLocation = LatLng(31.9539, 35.9106);
+  LatLng markerLocation = LatLng(33.5138, 36.2765);//         LatLng(31.9539, 35.9106)
   Future<String> getCityName(
     double latitude,
     double longitude,
