@@ -110,15 +110,27 @@ class _EditProdectPageState extends State<EditProdectPage> {
                     children: [
                       Row(
                         children: [
-                          Icon(
-                            Icons.arrow_back,
-                            color: Color(0xff4B5563),
-                            size: 20,
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              BlocProvider.of<HomePageCubit>(
+                                context,
+                              ).getdataproduct();
+                            },
+                            icon: Icon(
+                              Icons.arrow_back,
+                              color: Color(0xff4B5563),
+                              size: 20,
+                            ),
                           ),
                           SizedBox(width: 12.w),
                           // Icon(Icons.oil_barrel, color: AppColors.primary),
-                          SvgPicture.asset('assets/icons/product.svg',width: 18.w,),
-                          Text(overflow: TextOverflow.ellipsis,
+                          SvgPicture.asset(
+                            'assets/icons/product.svg',
+                            width: 18.w,
+                          ),
+                          Text(
+                            overflow: TextOverflow.ellipsis,
                             '  ${widget.item.name}',
                             style: AppTextStyle.poppins616blueDark,
                           ),
@@ -266,7 +278,9 @@ class _EditProdectPageState extends State<EditProdectPage> {
                                         SizedBox(
                                           width: 137.w,
                                           // height: 55.h,
-                                          child: TextFormField(keyboardType: TextInputType.numberWithOptions(),
+                                          child: TextFormField(
+                                            keyboardType:
+                                                TextInputType.numberWithOptions(),
                                             controller: widget.price,
                                             decoration: InputDecoration(
                                               hintText: widget.price.text,
@@ -300,7 +314,9 @@ class _EditProdectPageState extends State<EditProdectPage> {
                                         SizedBox(
                                           width: 137.w,
                                           // height: 55.h,
-                                          child: TextFormField(keyboardType: TextInputType.numberWithOptions(),
+                                          child: TextFormField(
+                                            keyboardType:
+                                                TextInputType.numberWithOptions(),
                                             controller: widget.discount,
                                             decoration: InputDecoration(
                                               hintText: widget.discount.text,
@@ -423,8 +439,8 @@ class _EditProdectPageState extends State<EditProdectPage> {
                           // print(widget.discount.text);
                           // print(widget.item.isAvailable);
                           // print(Category);
-                              // if(imageData!=null){
-                     BlocProvider.of<HomePageCubit>(context).EditProduct(
+                          // if(imageData!=null){
+                          BlocProvider.of<HomePageCubit>(context).EditProduct(
                             widget.item.id,
                             widget.productName.text,
                             widget.price.text,
@@ -433,10 +449,8 @@ class _EditProdectPageState extends State<EditProdectPage> {
                             Category,
                             imageData,
                           );
-                              }
+                        },
 
-
-                         
                         // },
                       ),
 
@@ -609,7 +623,14 @@ class CustomSnakeBar extends StatelessWidget {
                     size: 20.r,
                   ),
             SizedBox(width: 8.w),
-            Text(text, style: AppTextStyle.poppins416white,overflow: TextOverflow.ellipsis,),
+            SizedBox(
+              width: 250.w,
+              child: Text(
+                text,
+                style: AppTextStyle.poppins416white,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
       ),

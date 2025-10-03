@@ -20,10 +20,10 @@ import 'package:image_picker/image_picker.dart';
 
 class AddReelsPage extends StatelessWidget {
   AddReelsPage({super.key});
-
+  XFile? vidoe = null;
   @override
   Widget build(BuildContext context) {
-     GlobalKey<FormState> form =GlobalKey() ;
+    GlobalKey<FormState> form = GlobalKey();
     TextEditingController title = TextEditingController();
     TextEditingController descraption = TextEditingController();
     return BlocProvider(
@@ -62,10 +62,16 @@ class AddReelsPage extends StatelessWidget {
             body: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.all(16.r),
-                child: Form(key: form,
+                child: Form(
+                  key: form,
                   child: Column(
                     children: [
-                      UploadReelWidget(video: (value) {}),
+                      UploadReelWidget(
+                        video: (value) {
+                          print(value!.path);
+                          vidoe = value;
+                        },
+                      ),
                       addReelDetailsWidget(
                         title: title,
                         descraption: descraption,
@@ -124,43 +130,45 @@ class AddReelsPage extends StatelessWidget {
                             type: 'add reels',
                             iconButton: Icons.add,
                             ontap: () {
-                              print(state.video!.path);
+                              // print(state.video!.path);
+                              // print(vidoe!.path);
                               // remouteDataReelsSource(dio: Dio()).addNewReel(
                               //   state.video,
                               //   title.text,
                               //   descraption.text,
                               // );
-                  if(form.currentState!.validate()){
-
-             if(state.video !=null){
-                   BlocProvider.of<ReelsStateCubit>(
-                                context,
-                              ).AddNewReel(
-                                state.video,
-                                title.text,
-                                descraption.text,
-                              );
-                            }else if(state.video ==null)
-                            {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: CustomSnakeBar(
-                        isFailure: true,
-                        text: 'upload video , please',
-                      ),
-                      backgroundColor: Colors.transparent, // ⬅️ جعل الخلفية شفافة
-                      elevation: 0,
-                      behavior: SnackBarBehavior.floating,
-                      margin: EdgeInsets.only(
-                        top: 20, // مسافة من الأعلى
-                        left: 10,
-                        right: 10,
-                      ),
-                    ),
-                  );
-                            }
-                  }
-                        
+                              if (form.currentState!.validate()) {
+                                if (vidoe != null) {
+                                  // print(vidoe!.path);
+                                  BlocProvider.of<ReelsStateCubit>(
+                                    context,
+                                  ).AddNewReel(
+                                    vidoe,
+                                    title.text,
+                                    descraption.text,
+                                  );
+                                } else if (vidoe == null) {
+                                  return ScaffoldMessenger.of(
+                                    context,
+                                  ).showSnackBar(
+                                    SnackBar(
+                                      content: CustomSnakeBar(
+                                        isFailure: true,
+                                        text: 'upload video , please',
+                                      ),
+                                      backgroundColor: Colors
+                                          .transparent, // ⬅️ جعل الخلفية شفافة
+                                      elevation: 0,
+                                      behavior: SnackBarBehavior.floating,
+                                      margin: EdgeInsets.only(
+                                        top: 20, // مسافة من الأعلى
+                                        left: 10,
+                                        right: 10,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              }
                             },
                           );
                         },

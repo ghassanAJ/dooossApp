@@ -38,7 +38,13 @@ class ReelsStateCubit extends Cubit<reelsState> {
     result.fold(
       (failure) {
         print(failure.massageError);
-        emit(state.copyWith(error: failure.massageError));
+        if(failure.statusCode==400){
+              emit(state.copyWith(error: 'You have reached your monthly reel publishing quota'));
+        }else{
+   emit(state.copyWith(error: failure.massageError));
+        }
+        
+     
       },
       (isSuccess) {
         emit(state.copyWith(isSuccess: isSuccess));

@@ -22,7 +22,7 @@ class editDetailsWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Edit Details', style: AppTextStyle.poppins514),
+            Text('Edit Details', style: AppTextStyle.poppins516),
             SizedBox(height: 16.w),
             CustomFormWithTitleWidget(
               validation: (value) {},
@@ -231,28 +231,28 @@ class editDetailsWidget extends StatelessWidget {
             //     ],
             //   ),
             // ),
-            SizedBox(height: 16.h),
-            Text('Schedule', style: AppTextStyle.poppins514),
-            SizedBox(height: 10.h),
-            Row(
-              children: [
-                Expanded(
-                  child: SelectDateWidget(
-                    EditData: (Date) {
-                      print(Date);
-                    },
-                  ),
-                ),
-                SizedBox(width: 8.w),
-                Expanded(
-                  child: TimePickerWidget(
-                    editDateValue: (v) {
-                      print(v);
-                    },
-                  ),
-                ),
-              ],
-            ),
+            // SizedBox(height: 16.h),
+            // Text('Schedule', style: AppTextStyle.poppins514),
+            // SizedBox(height: 10.h),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: SelectDateWidget(
+            //         EditData: (Date) {
+            //           print(Date);
+            //         },
+            //       ),
+            //     ),
+            //     SizedBox(width: 8.w),
+            //     Expanded(
+            //       child: TimePickerWidget(
+            //         editDateValue: (v) {
+            //           print(v);
+            //         },
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),

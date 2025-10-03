@@ -40,7 +40,7 @@ class BrandAndYearSelectorWIdget extends StatelessWidget {
               SizedBox(
                 width: 324.w,
                 // height: 55.h,
-                child: DropdownButtonFormField<String>(
+                child: DropdownButtonFormField<String>(isExpanded: true,
                   icon: Icon(Icons.keyboard_arrow_down, color: Colors.black),
                   hint: Text(
                     ' Select Brand',
@@ -49,29 +49,25 @@ class BrandAndYearSelectorWIdget extends StatelessWidget {
                   ),
                   items: [
                     DropdownMenuItem<String>(child: Text('BMW'), value: 'BMW'),
-                     DropdownMenuItem<String>(child: Text('Mercedes-banz'), value: 'Mercedes-banz'),
+                     DropdownMenuItem<String>(child: Text('Mercedes-banz',overflow: TextOverflow.ellipsis,), value: 'Mercedes-banz'),
                         DropdownMenuItem<String>(child: Text('KIA'), value: 'KIA'),
                            DropdownMenuItem<String>(child: Text('Audi'), value: 'Audi'),
-                              DropdownMenuItem<String>(child: Text('Range Rover'), value: 'Range Rover'),
-                                    DropdownMenuItem<String>(child: Text('Hyundai'), value: 'Hyundai'),
+                              DropdownMenuItem<String>(child: Text('Range Rover',overflow: TextOverflow.ellipsis), value: 'Range Rover'),
+                                    DropdownMenuItem<String>(child: Text('Hyundai',overflow: TextOverflow.ellipsis), value: 'Hyundai'),
                      DropdownMenuItem<String>(child: Text('Toyota'), value: 'Toyota'),
                         DropdownMenuItem<String>(child: Text('Nissan'), value: 'Nissan'),
-                           DropdownMenuItem<String>(child: Text('VolksWagen'), value: 'VolksWagen'),
+                           DropdownMenuItem<String>(child: Text('VolksWagen',overflow: TextOverflow.ellipsis), value: 'VolksWagen'),
                               DropdownMenuItem<String>(child: Text('Honda'), value: 'Honda'),   
-
-
-                                               DropdownMenuItem<String>(child: Text('Chevrolet'), value: 'Chevrolet'),
+                      DropdownMenuItem<String>(child: Text('Chevrolet'), value: 'Chevrolet'),
                      DropdownMenuItem<String>(child: Text('Genesis'), value: 'Genesis'),
                         DropdownMenuItem<String>(child: Text('Ford'), value: 'Ford'),
-                           DropdownMenuItem<String>(child: Text('Mitsubishi'), value: 'Mitsubishi'),
+                           DropdownMenuItem<String>(child: Text('Mitsubishi',overflow: TextOverflow.ellipsis), value: 'Mitsubishi'),
                               DropdownMenuItem<String>(child: Text('Peugeot'), value: 'Peugeot'),
                                     DropdownMenuItem<String>(child: Text('Mazda'), value: 'Mazda'),
                      DropdownMenuItem<String>(child: Text('Dodge'), value: 'Dodge'),
                         DropdownMenuItem<String>(child: Text('Infiniti'), value: 'Infiniti'),
                            DropdownMenuItem<String>(child: Text('Skoda'), value: 'Skoda'),
                               DropdownMenuItem<String>(child: Text('Porshe'), value: 'Porshe'),     
-
-
                            DropdownMenuItem<String>(child: Text('Cadillac'), value: 'Cadillac'),
                      DropdownMenuItem<String>(child: Text('lexus'), value: 'lexus'),
                         DropdownMenuItem<String>(child: Text('Opel'), value: 'Opel'),

@@ -192,11 +192,12 @@ class bodyReel extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.edit_note_sharp,
-                          size: 18,
-                          color: AppColors.BlueDark,
-                        ),
+                        // Icon(
+                        //   Icons.edit_note_sharp,
+                        //   size: 18,
+                        //   color: AppColors.BlueDark,
+                        // ),
+                        SvgPicture.asset('assets/icons/edit.svg',color: AppColors.BlueDark,),
                         Text(' Edit', style: AppTextStyle.poppins414BD),
                       ],
                     ),

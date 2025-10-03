@@ -22,6 +22,7 @@ class RemouteDealerDataSource {
   RemouteDealerDataSource({required this.dio});
   Future<Either<Failure, List<productdata>>> getDataProduct() async {
     try {
+         print('________________________${dio.options.headers}________________________');
       var url = Uri.parse('${AppUrl.BaseUrl}/products/');
       var response = await dio.get(
         '${AppUrl.BaseUrl}/products/',
@@ -127,9 +128,10 @@ class RemouteDealerDataSource {
     //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYxMTIyMzE5LCJpYXQiOjE3NTg1MzAzMTksImp0aSI6IjVmMzljYzkyOTRjMTQ0YzdiNDk1OTMwODc4NWE0OTIwIiwidXNlcl9pZCI6IjMifQ.XIHFtjThZGYEbPDXRZZB41bw9q0Yrqd1uL-g723gg1A',
     // };
     print(dio.options.headers);
-    var headerAvaailable = dio.options.headers;
-
-   headerAvaailable.remove('Content-Type'); ///////////////////  تعديل
+    Map<String,dynamic> headerAvaailable = Map.from(dio.options.headers);//تعديل
+headerAvaailable.addAll({'Content-Type': 'application/json'});
+  ///////////////////  تعديل
+     print(headerAvaailable);
     var url = '${AppUrl.BaseUrl}/dealers/products/$id/availability/';
     var data = {"available": currentValue};
     try {

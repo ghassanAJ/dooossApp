@@ -14,7 +14,7 @@ class Failure {
           return Failure(massageError: 'poor connection , try again');
         case DioExceptionType.badResponse:
           if (e.response!.statusCode == 400) {
-            return Failure(massageError: 'error folani');
+            return Failure(massageError: 'error folani',statusCode: 400);
           } else {
             return Failure(massageError: 'error 3lani');
           }

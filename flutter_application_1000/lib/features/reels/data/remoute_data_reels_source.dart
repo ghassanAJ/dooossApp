@@ -22,7 +22,7 @@ class remouteDataReelsSource {
     try {
       print(getIt<Dio>().options.headers);
       var response = await dio.get(
-        'http://10.0.2.2:8010/api/reels/my-reels/',
+        '${AppUrl.BaseUrl}/reels/my-reels/',
         // options: Options(headers: header),
       );
       print(response.data);
@@ -43,8 +43,12 @@ class remouteDataReelsSource {
     String descraption,
   ) async {
     var url = '${AppUrl.BaseUrl}/reels/';
+    Map<String,dynamic> customHeader = Map.from(dio.options.headers);
+    customHeader.addAll({'Content-Type': 'application/json'});//////تعديل  ممكن تنحذف
 
-    print(videoUrl!.path);
+    print('________________________${videoUrl!.path}________________________');
+       print('________________________${customHeader}________________________');
+              print('________________________${dio.options.headers}________________________');
     var data = FormData.fromMap({
       'video': await MultipartFile.fromFile(
         videoUrl.path,
@@ -60,7 +64,7 @@ class remouteDataReelsSource {
         data: data,
         options: Options(
           method: 'POST',
-          // headers: header
+          headers: customHeader
         ),
       );
       // var response = await dio.post(
@@ -69,15 +73,16 @@ class remouteDataReelsSource {
       //   data: data,
       // );
       print(response.data);
-  
+
       print('okey');
       return right(true);
     } catch (e) {
       print(Failure.handleExcaption(e).massageError);
-      if (e is DioException) {
+      if (e is DioException ) {
         print(e.response!.data);
       }
       // print(e.toString());
+
       return left(Failure.handleExcaption(e));
     }
   }
