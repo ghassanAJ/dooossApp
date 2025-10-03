@@ -83,7 +83,7 @@ GlobalKey<FormState> form = GlobalKey<FormState>();
       // bottomNavigationBar: BottonNavigationOfEditStore(isAvaialble: isAvaiable),
       body: BlocListener<HomePageCubit, HomepageState>(
         listener: (context, state) {
-          if (state.isSuccessEditProduct == true) {
+          if (state.isLoadingeditProfile == true) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: CustomSnakeBar(text: 'Add Car is Success'),

@@ -498,7 +498,7 @@ class _editProductImageState extends State<editProductImage> {
           height: 85.h,
           child: BlocListener<HomePageCubit, HomepageState>(
             listener: (context, state) {
-              if (state.isSuccessEditProduct == true) {
+              if (state.isLoadingeditProfile == true) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: CustomSnakeBar(text: 'change data profile'),

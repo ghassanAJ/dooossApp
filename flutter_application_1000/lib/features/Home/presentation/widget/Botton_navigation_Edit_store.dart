@@ -20,7 +20,7 @@ class ProductListwidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: BlocBuilder<HomePageCubit, HomepageState>(
         builder: (context, state) {
-          if (state.isLoadingFecthProductData) {
+          if (state.isLoadingeditProfile==true) {
             return SizedBox(
               height: 300.h,
               child: Center(

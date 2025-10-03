@@ -46,16 +46,16 @@ class HomePageCubit extends Cubit<HomepageState> {
       );
   final RemouteDealerDataSource data;
   void getdataproduct() async {
-    emit(state.copyWith(isLoadingFecthProductData: true));
+    // emit(state.copyWith(isLoadingGetProduct: true));
     var result = await data.getDataProduct();
     result.fold(
       (error) {
-        emit(state.copyWith(error: error.massageError));
+        emit(state.copyWith(error: error.massageError,isLoadingGetProduct: false));
         print(error.toString());
       },
       (data) {
         // print(data.length);
-        emit(state.copyWith(allProduct: data));
+        emit(state.copyWith(allProduct: data,isSuccessGetProduct: true,isLoadingGetProduct: false));
       },
     );
   }
@@ -253,7 +253,7 @@ class HomePageCubit extends Cubit<HomepageState> {
         emit(state.copyWith(error: e.massageError));
       },
       (data) {
-        emit(state.copyWith(isSuccessEditProduct: true));
+        emit(state.copyWith(isLoadingeditProfile: true));
       },
     );
   }

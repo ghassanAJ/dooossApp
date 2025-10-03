@@ -17,6 +17,6 @@ void setUp() {
     () => RemouteDealerDataSource(dio: getIt<Dio>()),
   );
   getIt.registerLazySingleton<AuthRemouteDataSource>(
-    () => AuthRemouteDataSource(dio: getIt<Dio>()),
+    () => AuthRemouteDataSource(dio:Dio()),
   );
 }

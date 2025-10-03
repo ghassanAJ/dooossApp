@@ -121,7 +121,7 @@ class AddNewProductPage extends StatelessWidget {
                               );
                               BlocProvider.of<HomePageCubit>(
                                 context,
-                              ).getDataProfile();
+                              ).getDataProfile();// ediiiit
                               Navigator.pop(context);
                             } else if (state.error != null) {
                               ScaffoldMessenger.of(context).showSnackBar(

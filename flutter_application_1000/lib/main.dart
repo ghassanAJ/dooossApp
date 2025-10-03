@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) => BlocProvider(
-        create: (context) => AppManagerCubit(),
+        create: (context) => AppManagerCubit()..getDatadealer(),
         child: MaterialApp(debugShowCheckedModeBanner:false,
           title: 'Flutter Demo',
           theme: ThemeData(
@@ -70,9 +70,13 @@ class MyApp extends StatelessWidget {
             // tested with just a hot reload.
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           ),
-          home: BlocProvider(
-            create: (context) => AuthCubit(getIt<AuthRemouteDataSource>()),
-            child: NavigatorPage(),
+          home: BlocBuilder<AppManagerCubit,StateAppManager>(
+            builder: (context,state) {
+              return BlocProvider(
+                create: (context) => AuthCubit(getIt<AuthRemouteDataSource>()),
+                child:state.Userinfo!=null ? NavigatorPage(): LogInPage(),
+              );
+            }
           ),
         ),
       ),

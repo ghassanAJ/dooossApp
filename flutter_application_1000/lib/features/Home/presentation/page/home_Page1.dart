@@ -49,78 +49,67 @@ class HomePage1 extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: BlocListener<AuthCubit, AuthState>(
-                  listener: (context, state) {
-                    // if (state.dataUser != null) {
-                    //   print('okey');
-                    //   CustomSnakeBar(text: 'okey', isFailure: false);
-                    //   BlocProvider.of<AppManagerCubit>(
-                    //     context,
-                    //   ).savedDataUser(state.dataUser!);
-                    // }
-                  },
-                  child: AppBar(
-                    backgroundColor: Color(0xffffffff),
-
-                    shadowColor: Color.fromARGB(38, 0, 0, 0),
-                    actions: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: [
-                            // IconButton(
-                            //   onPressed: () {
-                            //     BlocProvider.of<AuthCubit>(context).SignIn();
-                            //   },
-                            //   icon: Icon(Icons.notifications, size: 20),
-                            // ),
-                            SizedBox(width: 10.w),
-                            GestureDetector(
-                              onTap: () {
-                                // RemouteDealerDataSource().getDataStoreProfile();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: CustomSnakeBar(text: 'ghassan'),
-                                    backgroundColor: Colors
-                                        .transparent, // ⬅️ جعل الخلفية شفافة
-                                    elevation: 0,
-                                    behavior: SnackBarBehavior.floating,
-                                    margin: EdgeInsets.only(
-                                      top: 20, // مسافة من الأعلى
-                                      left: 10,
-                                      right: 10,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: CircleAvatar(
-                                radius: 18.r,
-                                backgroundColor: Colors.grey,
-                                child: Icon(Icons.person, color: Colors.white),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                    title: GestureDetector(
-                      onTap: () {
-                    
-                      },
+                child: AppBar(
+                  backgroundColor: Color(0xffffffff),
+                
+                  shadowColor: Color.fromARGB(38, 0, 0, 0),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         children: [
-                          // Icon(Icons.directions_car, color: AppColors.primary, size: 24),
-                          SvgPicture.asset('assets/icons/car.svg'),
-                          SizedBox(width: 12.h),
-                          Text(
-                            'Dooss',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
+                          // IconButton(
+                          //   onPressed: () {
+                          //     BlocProvider.of<AuthCubit>(context).SignIn();
+                          //   },
+                          //   icon: Icon(Icons.notifications, size: 20),
+                          // ),
+                          SizedBox(width: 10.w),
+                          GestureDetector(
+                            onTap: () {
+                              // RemouteDealerDataSource().getDataStoreProfile();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: CustomSnakeBar(text: 'ghassan'),
+                                  backgroundColor: Colors
+                                      .transparent, // ⬅️ جعل الخلفية شفافة
+                                  elevation: 0,
+                                  behavior: SnackBarBehavior.floating,
+                                  margin: EdgeInsets.only(
+                                    top: 20, // مسافة من الأعلى
+                                    left: 10,
+                                    right: 10,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: CircleAvatar(
+                              radius: 18.r,
+                              backgroundColor: Colors.grey,
+                              child: Icon(Icons.person, color: Colors.white),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                  ],
+                  title: GestureDetector(
+                    onTap: () {
+                  
+                    },
+                    child: Row(
+                      children: [
+                        // Icon(Icons.directions_car, color: AppColors.primary, size: 24),
+                        SvgPicture.asset('assets/icons/car.svg'),
+                        SizedBox(width: 12.h),
+                        Text(
+                          'Dooss',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

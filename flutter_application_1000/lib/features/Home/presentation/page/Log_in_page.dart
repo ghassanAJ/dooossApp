@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1000/Core/App_manager/app_manager_cubit.dart';
 import 'package:flutter_application_1000/Core/style/app_text_style.dart';
+import 'package:flutter_application_1000/features/Auth/presentation/manager/Auth_state.dart';
+import 'package:flutter_application_1000/features/Auth/presentation/manager/auth_Cubit.dart';
+import 'package:flutter_application_1000/features/Home/presentation/page/navigotorPage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LogInPage extends StatelessWidget {
@@ -14,48 +19,72 @@ class LogInPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.fromLTRB(20.w, 151.h, 20.w, 101.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              loginHeader(),
-              LoginForm(userName: userName),
-             
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      height: 1,
-                      //  width: double.infinity,
-                      decoration: BoxDecoration(color: Color(0xffD9D9D9)),
+          child: BlocListener<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state.dataUser != null) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => NavigatorPage()),
+                );
+                BlocProvider.of<AppManagerCubit>(
+                  context,
+                ).savedDataUser(state.dataUser!);
+              }
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                loginHeader(),
+                LoginForm(userName: userName),
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 1,
+                        //  width: double.infinity,
+                        decoration: BoxDecoration(color: Color(0xffD9D9D9)),
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20.w,
-                      vertical: 28.h,
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
+                        vertical: 28.h,
+                      ),
+                      child: Text(
+                        'Or',
+                        style: TextStyle(color: Color(0xff7f7f7f)),
+                      ),
                     ),
-                    child: Text(
-                      'Or',
-                      style: TextStyle(color: Color(0xff7f7f7f)),
+                    Expanded(
+                      child: Container(
+                        height: 1,
+                        //  width: double.infinity,
+                        decoration: BoxDecoration(color: Color(0xffD9D9D9)),
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 1,
-                      //  width: double.infinity,
-                      decoration: BoxDecoration(color: Color(0xffD9D9D9)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<AuthCubit>(context).SignIn();
+                      },
+                      child: customButtonPayWidget(
+                        typePay: 'Apple Pay ',
+                        icon: Icon(Icons.apple_sharp),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  customButtonPayWidget(typePay: 'Apple Pay ',icon: Icon(Icons.apple_sharp),),
-                 customButtonPayWidget(typePay: 'Goolge Pay',icon: Icon(Icons.apple_sharp),),
-                ],
-              ),
-            ],
+                    customButtonPayWidget(
+                      typePay: 'Goolge Pay',
+                      icon: Icon(Icons.apple_sharp),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -64,10 +93,7 @@ class LogInPage extends StatelessWidget {
 }
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({
-    super.key,
-    required this.userName,
-  });
+  const LoginForm({super.key, required this.userName});
 
   final TextEditingController userName;
 
@@ -100,92 +126,91 @@ class LoginForm extends StatelessWidget {
               hintText: 'Password',
             ),
           ),
-           Padding(
-      padding: EdgeInsets.symmetric(vertical: 28.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Theme(
-                data: Theme.of(context).copyWith(
-                  splashFactory: NoSplash.splashFactory,
-                  materialTapTargetSize:
-                      MaterialTapTargetSize.shrinkWrap,
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 28.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                        splashFactory: NoSplash.splashFactory,
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+
+                      child: Checkbox(
+                        value: true,
+                        // splashRadius: 0,
+                        activeColor: Color(0xff349A51),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(4),
+                        ),
+                        onChanged: (value) {},
+                      ),
+                    ),
+                    Text(
+                      'Remember Me',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.sp,
+                        color: Color(0xff7f7f7f),
+                      ),
+                    ),
+                  ],
                 ),
-    
-                child: Checkbox(
-                  value: true,
-                  // splashRadius: 0,
-                  activeColor: Color(0xff349A51),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(4),
+                Text(
+                  'Forgot Password',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14.sp,
+                    color: Color(0xff454545),
                   ),
-                  onChanged: (value) {},
+                ),
+              ],
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                width: double.infinity,
+                height: 62.h,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Color(0xff349A51),
+                  borderRadius: BorderRadius.circular(62),
+                ),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18.sp,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              Text(
-                'Remember Me',
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14.sp,
-                  color: Color(0xff7f7f7f),
+              SizedBox(height: 18.h),
+              Container(
+                width: double.infinity,
+                height: 62.h,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Color(0xffEDEDED),
+                  borderRadius: BorderRadius.circular(62),
+                ),
+                child: Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 18.sp,
+                    color: Color(0xff349A51),
+                  ),
                 ),
               ),
             ],
           ),
-          Text(
-            'Forgot Password',
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14.sp,
-              color: Color(0xff454545),
-            ),
-          ),
-        ],
-      ),
-    ),
-    Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Container(
-          width: double.infinity,
-          height: 62.h,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Color(0xff349A51),
-            borderRadius: BorderRadius.circular(62),
-          ),
-          child: Text(
-            'Login',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 18.sp,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        SizedBox(height: 18.h),
-        Container(
-          width: double.infinity,
-          height: 62.h,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Color(0xffEDEDED),
-            borderRadius: BorderRadius.circular(62),
-          ),
-          child: Text(
-            'Sign Up',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 18.sp,
-              color: Color(0xff349A51),
-            ),
-          ),
-        ),
-      ],
-    ),
         ],
       ),
     );
@@ -193,9 +218,7 @@ class LoginForm extends StatelessWidget {
 }
 
 class loginHeader extends StatelessWidget {
-  const loginHeader({
-    super.key,
-  });
+  const loginHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +230,11 @@ class loginHeader extends StatelessWidget {
 }
 
 class customButtonPayWidget extends StatelessWidget {
-  const customButtonPayWidget({super.key, required this.typePay, required this.icon});
+  const customButtonPayWidget({
+    super.key,
+    required this.typePay,
+    required this.icon,
+  });
   final String typePay;
   final Icon icon;
   @override
@@ -238,7 +265,6 @@ class customButtonPayWidget extends StatelessWidget {
   }
 }
 
-
 class CustomAppBarProfileWidget extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
@@ -260,15 +286,14 @@ class CustomAppBarProfileWidget extends StatelessWidget
       backgroundColor: Colors.black54,
       elevation: 1,
       shadowColor: Colors.black.withOpacity(0.3),
-      leading:
-          showBack
-              ? IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: Icon(Icons.arrow_back, color: Colors.black12),
-              )
-              : null,
+      leading: showBack
+          ? IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back, color: Colors.black12),
+            )
+          : null,
       actions: trailing != null ? [trailing!] : null,
     );
   }
