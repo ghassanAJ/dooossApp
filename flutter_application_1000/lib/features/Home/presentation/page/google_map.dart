@@ -292,19 +292,19 @@ class _MapScreenState extends State<MapScreen> {
 
       if (placemarks.isNotEmpty) {
         // locality = اسم المدينة
-        return placemarks.first.locality ?? "مدينة غير معروفة";
+        return placemarks.first.locality ?? "a city is unknow";
       } else {
-        return "لا يوجد بيانات";
+        return "no data";
       }
     } catch (e) {
-      return "خطأ: $e";
+      return "failure: $e";
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('تحديد الموقع بالضغط')),
+      appBar: AppBar(title: const Text('select location')),
       body: FlutterMap(
         mapController: mapController,
         options: MapOptions(
