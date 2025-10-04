@@ -50,7 +50,7 @@ class MyReelsPage extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     child: BlocConsumer<ReelsStateCubit, reelsState>(
                       listener: (context, state) {
-                        // if (state.isSuccess == true) {
+                        if (state.isSuccess == true) {
                         //   ScaffoldMessenger.of(context).showSnackBar(
                         //     SnackBar(
                         //       content: CustomSnakeBar(
@@ -67,7 +67,11 @@ class MyReelsPage extends StatelessWidget {
                         //       ),
                         //     ),
                         //   );
-                        // }
+                         BlocProvider.of<ReelsStateCubit>(
+                          context,
+                        ).getDataReels();
+                        }
+                       
                       },
                       builder: (context, state) {
                         if (state.isLoading == true) {

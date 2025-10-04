@@ -253,7 +253,7 @@ class HomePageCubit extends Cubit<HomepageState> {
         emit(state.copyWith(error: e.massageError));
       },
       (data) {
-        emit(state.copyWith(isLoadingeditProfile: true));
+        emit(state.copyWith(isSuccess: true));
       },
     );
   }

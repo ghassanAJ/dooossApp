@@ -318,6 +318,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   // ✅ بدل dispose بخاصية pause فقط
   void checkVisibility(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       final renderObject = context.findRenderObject();
       if (renderObject is RenderBox) {
         final visibility = renderObject.localToGlobal(Offset.zero).dy;

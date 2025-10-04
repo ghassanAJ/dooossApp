@@ -101,9 +101,9 @@ class AddReelsPage extends StatelessWidget {
                                 ),
                               ),
                             );
-                            BlocProvider.of<ReelsStateCubit>(
-                              context,
-                            ).getDataReels();
+                            // BlocProvider.of<ReelsStateCubit>(
+                            //   context,
+                            // ).getDataReels();
                             Navigator.pop(context);
                           } else if (state.error != null) {
                             ScaffoldMessenger.of(context).showSnackBar(

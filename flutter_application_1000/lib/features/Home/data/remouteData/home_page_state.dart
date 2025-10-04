@@ -12,7 +12,8 @@ class HomepageState {
   final DataProfileModel dataStore;
   final bool isSuccessGetProduct;
   final bool isLoadingGetProduct;
- final bool isLoadingeditProfile;
+  final bool isLoadingeditProfile;
+  final bool isSuccess;
   HomepageState({
     required this.allProduct,
     this.error,
@@ -22,9 +23,9 @@ class HomepageState {
     this.isSuccessEditProduct = false,
     required this.dataStore,
     this.isSuccessGetProduct = false,
-       this.isLoadingGetProduct = false,
-       this.isLoadingeditProfile =false
-
+    this.isLoadingGetProduct = false,
+    this.isLoadingeditProfile = false,
+    this.isSuccess =false,
   });
 
   HomepageState copyWith({
@@ -36,8 +37,9 @@ class HomepageState {
     bool? isSuccessEditProduct,
     DataProfileModel? dataStore,
     bool? isSuccessGetProduct,
-   bool? isLoadingGetProduct,
-   bool? isLoadingeditProfile
+    bool? isLoadingGetProduct,
+    bool? isLoadingeditProfile,
+    bool? isSuccess
   }) {
     return HomepageState(
       allProduct: allProduct ?? this.allProduct,
@@ -48,9 +50,9 @@ class HomepageState {
       isSuccessEditProduct: isSuccessEditProduct ?? false,
       dataStore: dataStore ?? this.dataStore,
       isSuccessGetProduct: isSuccessGetProduct ?? false,
-      isLoadingGetProduct:isLoadingGetProduct??false,
-      isLoadingeditProfile: isLoadingeditProfile??this.isLoadingeditProfile
-
+      isLoadingGetProduct: isLoadingGetProduct ?? false,
+      isLoadingeditProfile: isLoadingeditProfile ?? this.isLoadingeditProfile,
+      isSuccess: isSuccess ?? false
     );
   }
 }
